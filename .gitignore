@@ -1,22 +1,28 @@
 
 # directories (by name)
 
-.DS_Store
-
 # directories (by pattern)
 
 # files (by name)
 
+.DS_Store
+
 # files (by pattern)
 
 *~
+*.a
 *.dll
 *.dylib
 *.exe
 *.exe~
+*.o
 *.out
+*.prof
 *.so
 *.swp
 *.test
 *.tmp
+*.[568vq]
+
+[568vq].out
 
