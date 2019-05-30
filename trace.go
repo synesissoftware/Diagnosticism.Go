@@ -4,9 +4,9 @@
  * Purpose:     Trace API for diagnosticism.Go
  *
  * Created:     5th March 2019
- * Updated:     24th March 2019
+ * Updated:     30th May 2019
  *
- * Home:        http://synesis.com.au/software
+ * Home:        https://github.com/synesissoftware/diagnosticism.Go
  *
  * Copyright (c) 2019, Matthew Wilson
  * All rights reserved.
@@ -43,9 +43,10 @@ package diagnosticism
 
 import (
 
+	severity "github.com/synesissoftware/diagnosticism.Go/severity"
+
 	"bytes"
 	"fmt"
-	"os"
 )
 
 var enableTracing bool
@@ -66,6 +67,29 @@ type TraceArgument struct {
 	nameOnly	bool
 }
 
+func (arg TraceArgument) String() (string) {
+
+	if arg.nameOnly {
+
+		return fmt.Sprintf("%s(%T)", arg.Name, arg.Value)
+	} else {
+
+		return fmt.Sprintf("%s(%T)=%v", arg.Name, arg.Value, arg.Value)
+	}
+}
+
+// [INTERNAL]
+//
+// Purpose: create a TraceArgument instance
+//
+// Parameters:
+//  - +name+ (string) The name of the argument
+//  - +nameOnly+ (bool) Whether only the name (and type) is to be shown
+//  - +value+ (interface{}) The value of the argument
+//
+// Return: (TraceArgument) an instance
+//
+// Remarks: use of a boolean parameter is valid here because this is an internal method
 func makeTraceArgument(name string, nameOnly bool, value interface{}) (TraceArgument) {
 
 	return TraceArgument{ Name: name, Value: value, nameOnly: nameOnly }
@@ -116,22 +140,14 @@ func Trace(function_name string, args ...TraceArgument) {
 			buffer.WriteString(", ")
 		}
 
-		var s string
-
-		if arg.nameOnly {
-
-			s = fmt.Sprintf("%s(%T)", arg.Name, arg.Value)
-		} else {
-
-			s = fmt.Sprintf("%s(%T)=%v", arg.Name, arg.Value, arg.Value)
-		}
+		s := arg.String()
 
 		buffer.WriteString(s)
 	}
 
 	buffer.WriteString(")")
 
-	fmt.Fprintf(os.Stderr, "%s\n", buffer.String())
+	log_s(severity.Trace, buffer.String())
 }
 
 /* ///////////////////////////// end of file //////////////////////////// */

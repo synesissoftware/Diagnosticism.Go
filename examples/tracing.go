@@ -9,8 +9,8 @@ import (
 
 func SomeFunction(x, y int, order string) {
 	d.Trace("SomeFunction",
-		d.Trarg("x", x),
-		d.Trarg("y", y),
+		d.TrargNameOnly("x", x),
+		d.TrargNameOnly("y", y),
 		d.Trarg("order", order),
 	)
 	//. . . impl. of SomeFunc()

@@ -1,9 +1,9 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        version.go
+ * File:        log.go
  *
- * Purpose:     Version file for diagnosticism.Go
+ * Purpose:     Log API for diagnosticism.Go
  *
- * Created:     5th March 2019
+ * Created:     30th May 2019
  * Updated:     30th May 2019
  *
  * Home:        https://github.com/synesissoftware/diagnosticism.Go
@@ -41,15 +41,68 @@
 
 package diagnosticism
 
-const (
+import (
 
-	VersionMajor int16		=	0
-	VersionMinor int16		=	2
-	VersionPatch int16		=	0
-	Version int64			=	(int64(VersionMajor) << 48) + (int64(VersionMinor) << 32) + (int64(VersionPatch) << 16)
+	severity "github.com/synesissoftware/diagnosticism.Go/severity"
 
-	VersionRevision int16	=	VersionPatch
+	"bytes"
+	"fmt"
+	"log"
 )
+
+var enableLogging bool
+
+func EnableLogging(enable bool) {
+
+	enableLogging = enable
+}
+func IsLoggingEnabled() bool {
+
+	return enableLogging
+}
+
+func log_s(severity severity.Severity, s string) {
+
+	log.Println(severity.String() + " : " + s)
+}
+
+func Log(severity severity.Severity, args ...interface{}) {
+
+	if !enableLogging {
+
+		return
+	}
+
+	var buffer bytes.Buffer
+
+	for i, arg := range(args) {
+
+		if i != 0 {
+
+			buffer.WriteString(", ")
+		}
+
+		s := fmt.Sprintf("%v", arg)
+
+		buffer.WriteString(s)
+	}
+
+	s := buffer.String()
+
+	log_s(severity, s)
+}
+
+func LogF(severity severity.Severity, format string, args ...interface{}) {
+
+	if !enableLogging {
+
+		return
+	}
+
+	s := fmt.Sprintf(format, args...)
+
+	log_s(severity, s)
+}
 
 /* ///////////////////////////// end of file //////////////////////////// */
 
