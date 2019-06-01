@@ -1,5 +1,9 @@
 # **diagnosticism.Go** Changes
 
+## 0.3.0 - 1st June 2019
+
+* + added ``ConRep()`` + ``ConRepF()`` and ``Abort()`` + ``AbortF()``
+
 ## 0.2.0 - 30th May 2019
 
 * + added ``severity.Severity``
