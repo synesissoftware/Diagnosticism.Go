@@ -1,5 +1,9 @@
 # **diagnosticism.Go** Changes
 
+## 0.3.1 - 1st June 2019
+
+* ~ fix to ``Log()``
+
 ## 0.3.0 - 1st June 2019
 
 * + added ``ConRep()`` + ``ConRepF()`` and ``Abort()`` + ``AbortF()``

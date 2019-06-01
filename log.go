@@ -4,7 +4,7 @@
  * Purpose:     Log API for diagnosticism.Go
  *
  * Created:     30th May 2019
- * Updated:     30th May 2019
+ * Updated:     1st June 2019
  *
  * Home:        https://github.com/synesissoftware/diagnosticism.Go
  *
@@ -75,12 +75,7 @@ func Log(severity severity.Severity, args ...interface{}) {
 
 	var buffer bytes.Buffer
 
-	for i, arg := range(args) {
-
-		if i != 0 {
-
-			buffer.WriteString(", ")
-		}
+	for _, arg := range(args) {
 
 		s := fmt.Sprintf("%v", arg)
 
