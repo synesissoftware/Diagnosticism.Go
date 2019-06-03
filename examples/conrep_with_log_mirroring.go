@@ -13,7 +13,7 @@ func main() {
 	d.MirrorToLog(true)
 
 	d.ConRep("some important information")
-	d.ConRepF("some more important information: %s, %d, %f", `abc`, -1, 234.567)
+	d.ConRepf("some more important information: %s, %d, %f", `abc`, -1, 234.567)
 
 	d.Abort("and we're out!")
 }

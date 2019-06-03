@@ -1,5 +1,9 @@
 # **diagnosticism.Go** Changes
 
+## 0.3.2 - 4th June 2019
+
+* ~ renamed ``AbortF()`` => ``Abortf()``, ``ConRepF()`` => ``ConRepf()``, ``LogF()`` => ``Logf()``
+
 ## 0.3.1 - 1st June 2019
 
 * ~ fix to ``Log()``
