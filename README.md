@@ -27,7 +27,13 @@ import diagnosticism "github.com/synesissoftware/diagnosticism.Go"
 
 ## Components
 
-T.B.C.
+**diagnosticism.Python** provides components in the following categories:
+
+* Contingent Reporting
+* Diagnostic Logging
+* Tracing
+
+**NOTE**: for the moment, the Diagnostic Logging facilities emit to the standard error stream, via the Contingent Reporting API. In the near future this will be changed to work with more sophisticated logging libraries, including the standard logging facilities and the (as yet to be release) **Pantheios.Go**.
 
 ## Examples
 
