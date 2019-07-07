@@ -1,5 +1,9 @@
 # **diagnosticism.Go** Changes
 
+## 0.4.0 (unchanged) - 8th July 2019
+
+* + added several examples
+
 ## 0.4.0 - 8th July 2019
 
 * + added LogHandler() adapter
