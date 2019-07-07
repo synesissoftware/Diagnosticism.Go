@@ -1,5 +1,9 @@
 # **diagnosticism.Go** Changes
 
+## 0.4.0 - 8th July 2019
+
+* + added LogHandler() adapter
+
 ## 0.3.2 - 4th June 2019
 
 * ~ renamed ``AbortF()`` => ``Abortf()``, ``ConRepF()`` => ``ConRepf()``, ``LogF()`` => ``Logf()``
