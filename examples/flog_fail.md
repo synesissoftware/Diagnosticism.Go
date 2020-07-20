@@ -1,4 +1,4 @@
-# diagnosticism.Go Example - **flog_fail**
+# Diagnosticism.Go Example - **flog_fail**
 
 ## Summary
 
@@ -11,8 +11,8 @@ package main
 
 import (
 
-	d "github.com/synesissoftware/diagnosticism.Go"
-	severity "github.com/synesissoftware/diagnosticism.Go/severity"
+	d "github.com/synesissoftware/Diagnosticism.Go"
+	severity "github.com/synesissoftware/Diagnosticism.Go/severity"
 )
 
 

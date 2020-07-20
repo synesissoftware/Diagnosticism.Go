@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
  * File:        severity.go
  *
- * Purpose:     Defines severity type(s) for diagnosticism.Go
+ * Purpose:     Defines severity type(s) for Diagnosticism.Go
  *
  * Created:     30th May 2019
- * Updated:     30th May 2019
+ * Updated:     20th July 2020
  *
- * Home:        https://github.com/synesissoftware/diagnosticism.Go
+ * Home:        https://github.com/synesissoftware/Diagnosticism.Go
  *
- * Copyright (c) 2019, Matthew Wilson
+ * Copyright (c) 2019-2020, Matthew Wilson
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without

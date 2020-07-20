@@ -1,4 +1,4 @@
-# diagnosticism.Go Example - **tracing**
+# Diagnosticism.Go Example - **tracing**
 
 ## Summary
 
@@ -11,7 +11,7 @@ package main
 
 import (
 
-	d "github.com/synesissoftware/diagnosticism.Go"
+	d "github.com/synesissoftware/Diagnosticism.Go"
 )
 
 

@@ -1,4 +1,4 @@
-# diagnosticism.Go Example - **conrep_with_log_mirroring**
+# Diagnosticism.Go Example - **conrep_with_log_mirroring**
 
 ## Summary
 
@@ -11,7 +11,7 @@ package main
 
 import (
 
-	d "github.com/synesissoftware/diagnosticism.Go"
+	d "github.com/synesissoftware/Diagnosticism.Go"
 )
 
 func main() {

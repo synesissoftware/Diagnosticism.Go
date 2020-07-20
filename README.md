@@ -1,9 +1,9 @@
-# diagnosticism.Go
+# Diagnosticism.Go
 Basic diagnostic facilities, for Go
 
 ## Introduction
 
-**diagnosticism** provides low-level diagnostics facilities to support library programming. The first **diagnosticism** library was a C library with a C++ wrapper. There have been several implementations in other languages. **diagnosticism.Go** is the
+**Diagnosticism** provides low-level diagnostics facilities to support library programming. The first **Diagnosticism** library was a C library with a C++ wrapper. There have been several implementations in other languages. **Diagnosticism.Go** is the
 Go version.
 
 ## Table of Contents
@@ -22,12 +22,12 @@ T.B.C.
 
 ```Go
 
-import diagnosticism "github.com/synesissoftware/diagnosticism.Go"
+import diagnosticism "github.com/synesissoftware/Diagnosticism.Go"
 ```
 
 ## Components
 
-**diagnosticism.Python** provides components in the following categories:
+**Diagnosticism.Go** provides components in the following categories:
 
 * Contingent Reporting
 * Diagnostic Logging
@@ -43,11 +43,11 @@ Examples are provided in the ```examples``` directory, along with a markdown des
 
 ### Where to get help
 
-[GitHub Page](https://github.com/synesissoftware/diagnosticism.Go "GitHub Page")
+[GitHub Page](https://github.com/synesissoftware/Diagnosticism.Go "GitHub Page")
 
 ### Contribution guidelines
 
-Defect reports, feature requests, and pull requests are welcome on https://github.com/synesissoftware/diagnosticism.Go.
+Defect reports, feature requests, and pull requests are welcome on https://github.com/synesissoftware/Diagnosticism.Go.
 
 ### Dependencies
 
@@ -60,10 +60,10 @@ None
 
 ### Related projects
 
-* [**diagnosticism**](https://github.com/synesissoftware/diagnosticism/)
-* [**diagnosticism.Python**](https://github.com/synesissoftware/diagnosticism.Python/)
-* [**diagnosticism.Ruby**](https://github.com/synesissoftware/diagnosticism.Ruby/)
+* [**Diagnosticism**](https://github.com/synesissoftware/Diagnosticism/)
+* [**Diagnosticism.Python**](https://github.com/synesissoftware/Diagnosticism.Python/)
+* [**Diagnosticism.Ruby**](https://github.com/synesissoftware/Diagnosticism.Ruby/)
 
 ### License
 
-**diagnosticism.Go** is released under the 3-clause BSD license. See [LICENSE](./LICENSE) for details.
+**Diagnosticism.Go** is released under the 3-clause BSD license. See [LICENSE](./LICENSE) for details.

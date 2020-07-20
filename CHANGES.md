@@ -1,4 +1,4 @@
-# **diagnosticism.Go** Changes
+# **Diagnosticism.Go** Changes
 
 ## 0.4.0 (unchanged) - 8th July 2019
 

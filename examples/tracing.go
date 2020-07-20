@@ -3,7 +3,7 @@ package main
 
 import (
 
-	d "github.com/synesissoftware/diagnosticism.Go"
+	d "github.com/synesissoftware/Diagnosticism.Go"
 )
 
 
