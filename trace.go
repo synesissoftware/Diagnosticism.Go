@@ -4,7 +4,7 @@
  * Purpose:     Trace API for Diagnosticism.Go
  *
  * Created:     5th March 2019
- * Updated:     20th July 2020
+ * Updated:     22nd July 2020
  *
  * Home:        https://github.com/synesissoftware/Diagnosticism.Go
  *
@@ -109,12 +109,15 @@ func TrargNameOnly(name string, value interface{}) (TraceArgument) {
 // Provides named-argument tracing of a function/method, as in:
 //
 //  import d "github.com/synesissoftware/Diagnosticism.Go"
+//
 //	func SomeFunction(x, y int, order string) {
+//
 //		d.Trace("SomeFunction",
 //			d.Trarg("x", x),
 //			d.Trarg("y", y),
-//			d.Trarg("order", order),
+//			d.TrargNameOnly("order", order),
 //		)
+//
 //		. . . impl. of SomeFunc()
 //	}
 //
