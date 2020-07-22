@@ -1,5 +1,9 @@
 # **Diagnosticism.Go** Changes
 
+## 0.5.0.1 - 22nd July 2020
+
+* ~ renamed **examples/flog_fail.(go|md)** => **examples/logf_fail.(go|md)**
+
 ## 0.5.0 - 20th July 2020
 
 * ~ wholesale rename of ``diagnosticism`` => ``Diagnosticism``

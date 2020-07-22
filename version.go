@@ -4,7 +4,7 @@
  * Purpose:     Version file for Diagnosticism.Go
  *
  * Created:     5th March 2019
- * Updated:     20th July 2020
+ * Updated:     22nd July 2020
  *
  * Home:        https://github.com/synesissoftware/Diagnosticism.Go
  *
@@ -52,7 +52,7 @@ const (
 	VersionMajor int16		=	0
 	VersionMinor int16		=	5
 	VersionPatch int16		=	0
-	VersionBuild int16		=	0
+	VersionBuild int16		=	1
 	Version int64			=	(int64(VersionMajor) << 48) + (int64(VersionMinor) << 32) + (int64(VersionPatch) << 16) + (int64(VersionBuild) << 0)
 
 	VersionRevision int16	=	VersionPatch
