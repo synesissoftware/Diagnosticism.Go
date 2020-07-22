@@ -1,5 +1,9 @@
 # **Diagnosticism.Go** Changes
 
+## 0.5.0 - 20th July 2020
+
+* ~ wholesale rename of ``diagnosticism`` => ``Diagnosticism``
+
 ## 0.4.0 (unchanged) - 8th July 2019
 
 * + added several examples
