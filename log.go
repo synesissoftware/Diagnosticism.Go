@@ -4,7 +4,7 @@
  * Purpose:     Log API for Diagnosticism.Go
  *
  * Created:     30th May 2019
- * Updated:     20th July 2020
+ * Updated:     22nd July 2020
  *
  * Home:        https://github.com/synesissoftware/Diagnosticism.Go
  *
@@ -44,12 +44,113 @@ package diagnosticism
 
 import (
 
-	severity "github.com/synesissoftware/Diagnosticism.Go/severity"
+	sev "github.com/synesissoftware/Diagnosticism.Go/severity"
 
 	"bytes"
 	"fmt"
 	"log"
+	"sync"
+	"sync/atomic"
+	"time"
+	"unsafe"
 )
+
+// Flags for controlling back-end behaviour/features
+type BackEndFlag int
+
+const (
+
+	NoPrefix			BackEndFlag	=	1
+	NoPrefixSeparator	BackEndFlag	=	2
+	NoTime				BackEndFlag	=	4
+)
+
+type BackEndEntry struct {
+
+	Severity	sev.Severity
+	Time		time.Time
+	Message		string
+}
+
+// The BackEndHandlerFunc is called when a log statement is to be emitted
+type BackEndHandlerFunc func(be *BackEnd, bee *BackEndEntry)
+
+type BackEnd struct {
+
+	// Flags that control the back-end behaviour/features
+	Flags			BackEndFlag
+	// The back-end handler function. May not be nil
+	HandlerFunc		BackEndHandlerFunc
+	// The string to be used as a separator. If the empty string, then the
+	// default separator - " : " - is used. If no separator is desired, the
+	// NoPrefixSeparator flag must be specified
+	PrefixSeparator	string
+}
+
+func defaultBackEndHandlerFunc(be *BackEnd, bee *BackEndEntry) {
+
+	log.Println(bee.Severity.String() + " : " + bee.Message)
+}
+
+var defaultBackEnd = BackEnd {
+
+	Flags			:	0,
+	HandlerFunc		:	defaultBackEndHandlerFunc,
+	PrefixSeparator	:	" : ",
+}
+
+var activeBE *BackEnd = &defaultBackEnd
+
+
+func check_atomically() (bool) {
+
+	var be BackEndHandlerFunc
+	var ui uintptr
+
+	if unsafe.Sizeof(be) == unsafe.Sizeof(ui) {
+
+		return true
+	}
+
+	return false
+}
+
+var atomicallyBE = check_atomically()
+var mxBE = &sync.Mutex {}
+
+
+func SetBackEnd(be *BackEnd) (r *BackEnd) {
+
+	if r == nil {
+
+		r = &defaultBackEnd
+	}
+
+	if atomicallyBE {
+
+		var pp_old = (*unsafe.Pointer)(unsafe.Pointer(&activeBE))
+		var p_new = *(*unsafe.Pointer)(unsafe.Pointer(&be))
+
+		r0 := atomic.SwapPointer(pp_old, p_new)
+
+		r = (*BackEnd)(r0)
+
+	} else {
+
+		mxBE.Lock()
+		defer mxBE.Unlock()
+
+		r = activeBE
+
+		activeBE = be
+	}
+
+	return
+}
+func GetBackEndHandlerFunc() (*BackEnd) {
+
+	return activeBE
+}
 
 var enableLogging bool
 
@@ -62,12 +163,25 @@ func IsLoggingEnabled() bool {
 	return enableLogging
 }
 
-func log_s(severity severity.Severity, s string) {
+func log_s(severity sev.Severity, message string) {
 
-	log.Println(severity.String() + " : " + s)
+	be := activeBE
+
+	bee := BackEndEntry {
+
+		Severity	:	severity,
+		Message		:	message,
+	}
+
+	if (0 == (NoTime & be.Flags)) {
+
+		bee.Time = time.Now()
+	}
+
+	be.HandlerFunc(be, &bee)
 }
 
-func Log(severity severity.Severity, args ...interface{}) {
+func Log(severity sev.Severity, args ...interface{}) {
 
 	if !enableLogging {
 
@@ -88,7 +202,7 @@ func Log(severity severity.Severity, args ...interface{}) {
 	log_s(severity, s)
 }
 
-func Logf(severity severity.Severity, format string, args ...interface{}) {
+func Logf(severity sev.Severity, format string, args ...interface{}) {
 
 	if !enableLogging {
 

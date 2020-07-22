@@ -17,6 +17,6 @@ func Test_Version(t *testing.T) {
 
 	var v_jnp = strings.Join(jnp, ".")
 
-	stegol.CheckStringEqual(t, "0.5.0", v_jnp)
+	stegol.CheckStringEqual(t, "0.6.0", v_jnp)
 }
 
