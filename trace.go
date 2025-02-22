@@ -87,7 +87,8 @@ func (arg TraceArgument) String() string {
 //
 // Return: (TraceArgument) an instance
 //
-// Remarks: use of a boolean parameter is valid here because this is an internal method
+// Remarks: use of a boolean parameter is valid here because this is an
+// internal method.
 func makeTraceArgument(name string, nameOnly bool, value interface{}) TraceArgument {
 
 	return TraceArgument{Name: name, Value: value, nameOnly: nameOnly}
@@ -118,9 +119,9 @@ func TrargNameOnly(name string, value interface{}) TraceArgument {
 //			. . . impl. of SomeFunc()
 //		}
 //
-// The first parameter function_name is a string, and the remaining
+// The first parameter `function_name` is a string, and the remaining
 // parameters are a variable length list of TraceArgument instances, which
-// may be created using the Trarg() and TrargNameOnly() functions
+// may be created using the `Trarg()` and `TrargNameOnly()` functions
 func Trace(function_name string, args ...TraceArgument) {
 
 	if !enableTracing {

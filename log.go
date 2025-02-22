@@ -42,7 +42,7 @@
 package diagnosticism
 
 import (
-	sev "github.com/synesissoftware/Diagnosticism.Go/severity"
+	severity "github.com/synesissoftware/Diagnosticism.Go/severity"
 
 	"bytes"
 	"fmt"
@@ -63,7 +63,7 @@ const (
 )
 
 type BackEndEntry struct {
-	Severity sev.Severity
+	Severity severity.Severity
 	Time     time.Time
 	Message  string
 }
@@ -157,7 +157,7 @@ func IsLoggingEnabled() bool {
 	return enableLogging
 }
 
-func log_s(severity sev.Severity, message string) {
+func log_s(severity severity.Severity, message string) {
 
 	be := activeBE
 
@@ -175,7 +175,7 @@ func log_s(severity sev.Severity, message string) {
 	be.HandlerFunc(be, &bee)
 }
 
-func Log(severity sev.Severity, args ...interface{}) {
+func Log(severity severity.Severity, args ...interface{}) {
 
 	if !enableLogging {
 
@@ -196,7 +196,7 @@ func Log(severity sev.Severity, args ...interface{}) {
 	log_s(severity, s)
 }
 
-func Logf(severity sev.Severity, format string, args ...interface{}) {
+func Logf(severity severity.Severity, format string, args ...interface{}) {
 
 	if !enableLogging {
 
