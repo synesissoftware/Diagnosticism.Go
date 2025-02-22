@@ -1,8 +1,6 @@
-
 package main
 
 import (
-
 	d "github.com/synesissoftware/Diagnosticism.Go"
 )
 
@@ -13,4 +11,3 @@ func main() {
 
 	d.Abort("and we're out!")
 }
-

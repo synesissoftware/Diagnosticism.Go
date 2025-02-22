@@ -1,11 +1,8 @@
-
 package main
 
 import (
-
 	d "github.com/synesissoftware/Diagnosticism.Go"
 )
-
 
 func SomeFunction(x, y int, order string) {
 	d.Trace("SomeFunction",
@@ -22,4 +19,3 @@ func main() {
 
 	SomeFunction(1, 2, "first")
 }
-

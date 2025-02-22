@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        conrep.go
+ * File:    conrep.go
  *
- * Purpose:     Contingent report API for Diagnosticism.Go
+ * Purpose: Contingent report API for Diagnosticism.Go
  *
- * Created:     31st May 2019
- * Updated:     20th July 2020
+ * Created: 31st May 2019
+ * Updated: 22nd February 2025
  *
- * Home:        https://github.com/synesissoftware/Diagnosticism.Go
+ * Home:    https://github.com/synesissoftware/Diagnosticism.Go
  *
- * Copyright (c) 2019-2020, Matthew Wilson
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -39,11 +39,9 @@
  *
  * ////////////////////////////////////////////////////////////////////// */
 
-
 package diagnosticism
 
 import (
-
 	severity "github.com/synesissoftware/Diagnosticism.Go/severity"
 
 	"fmt"
@@ -59,7 +57,7 @@ import (
 
 var mirroringToLog bool
 
-var contingentReportWriter	io.Writer	=	os.Stderr
+var contingentReportWriter io.Writer = os.Stderr
 
 /* /////////////////////////////////////////////////////////////////////////
  * helper functions
@@ -95,7 +93,7 @@ func getProgramName() string {
 
 		case ".exe":
 
-			base = base[0:len(base) - 4]
+			base = base[0 : len(base)-4]
 		}
 	}
 
@@ -168,5 +166,3 @@ func Abortf(format string, args ...interface{}) {
 }
 
 /* ///////////////////////////// end of file //////////////////////////// */
-
-

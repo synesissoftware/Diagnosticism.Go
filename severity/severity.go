@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        severity.go
+ * File:    severity.go
  *
- * Purpose:     Defines severity type(s) for Diagnosticism.Go
+ * Purpose: Defines severity type(s) for Diagnosticism.Go
  *
- * Created:     30th May 2019
- * Updated:     20th July 2020
+ * Created: 30th May 2019
+ * Updated: 22nd February 2025
  *
- * Home:        https://github.com/synesissoftware/Diagnosticism.Go
+ * Home:    https://github.com/synesissoftware/Diagnosticism.Go
  *
- * Copyright (c) 2019-2020, Matthew Wilson
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -38,11 +38,9 @@
  *
  * ////////////////////////////////////////////////////////////////////// */
 
-
 package severity
 
 import (
-
 	"fmt"
 )
 
@@ -50,7 +48,7 @@ import (
  * types
  */
 
-type Severity	int
+type Severity int
 
 func (severity Severity) String() string {
 
@@ -58,7 +56,6 @@ func (severity Severity) String() string {
 }
 
 type SeverityTranslator interface {
-
 	SeverityToString(severity Severity) string
 }
 
@@ -67,34 +64,32 @@ type SeverityTranslator interface {
  */
 
 const (
+	Unspecified   Severity = 0
+	Violation     Severity = 1
+	Alert         Severity = 2
+	Critical      Severity = 3
+	Failure       Severity = 4
+	Warning       Severity = 5
+	Notice        Severity = 6
+	Informational Severity = 7
+	Debug0        Severity = 8
+	Debug1        Severity = 9
+	Debug2        Severity = 10
+	Debug3        Severity = 11
+	Debug4        Severity = 12
+	Debug5        Severity = 13
+	Trace         Severity = 14
 
-	Unspecified		Severity	=	0
-	Violation		Severity	=	1
-	Alert			Severity	=	2
-	Critical		Severity	=	3
-	Failure			Severity	=	4
-	Warning			Severity	=	5
-	Notice			Severity	=	6
-	Informational	Severity	=	7
-	Debug0			Severity	=	8
-	Debug1			Severity	=	9
-	Debug2			Severity	=	10
-	Debug3			Severity	=	11
-	Debug4			Severity	=	12
-	Debug5			Severity	=	13
-	Trace			Severity	=	14
-
-	Warn			Severity	=	Warning
-	Fail			Severity	=	Failure
-	Info			Severity	=	Informational
+	Warn Severity = Warning
+	Fail Severity = Failure
+	Info Severity = Informational
 )
 
 /* /////////////////////////////////////////////////////////////////////////
  * private types
  */
 
-type defaultSeverityTranslator struct
-{}
+type defaultSeverityTranslator struct{}
 
 func (dt defaultSeverityTranslator) SeverityToString(severity Severity) string {
 
@@ -160,5 +155,3 @@ func TranslateStockSeverity(severity Severity) string {
 }
 
 /* ///////////////////////////// end of file //////////////////////////// */
-
-

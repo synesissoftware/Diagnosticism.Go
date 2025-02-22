@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        trace.go
+ * File:    trace.go
  *
- * Purpose:     Trace API for Diagnosticism.Go
+ * Purpose: Trace API for Diagnosticism.Go
  *
- * Created:     5th March 2019
- * Updated:     22nd July 2020
+ * Created: 5th March 2019
+ * Updated: 22nd February 2025
  *
- * Home:        https://github.com/synesissoftware/Diagnosticism.Go
+ * Home:    https://github.com/synesissoftware/Diagnosticism.Go
  *
- * Copyright (c) 2019-2020, Matthew Wilson
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -39,11 +39,9 @@
  *
  * ////////////////////////////////////////////////////////////////////// */
 
-
 package diagnosticism
 
 import (
-
 	severity "github.com/synesissoftware/Diagnosticism.Go/severity"
 
 	"bytes"
@@ -62,13 +60,12 @@ func IsTracingEnabled() bool {
 }
 
 type TraceArgument struct {
-
-	Name		string
-	Value		interface{}
-	nameOnly	bool
+	Name     string
+	Value    interface{}
+	nameOnly bool
 }
 
-func (arg TraceArgument) String() (string) {
+func (arg TraceArgument) String() string {
 
 	if arg.nameOnly {
 
@@ -84,47 +81,47 @@ func (arg TraceArgument) String() (string) {
 // Purpose: create a TraceArgument instance
 //
 // Parameters:
-//  - +name+ (string) The name of the argument
-//  - +nameOnly+ (bool) Whether only the name (and type) is to be shown
-//  - +value+ (interface{}) The value of the argument
+//   - +name+ (string) The name of the argument
+//   - +nameOnly+ (bool) Whether only the name (and type) is to be shown
+//   - +value+ (interface{}) The value of the argument
 //
 // Return: (TraceArgument) an instance
 //
-// Remarks: use of a boolean parameter is valid here because this is an internal method
-func makeTraceArgument(name string, nameOnly bool, value interface{}) (TraceArgument) {
+// Remarks: use of a boolean parameter is valid here because this is an
+// internal method.
+func makeTraceArgument(name string, nameOnly bool, value interface{}) TraceArgument {
 
-	return TraceArgument{ Name: name, Value: value, nameOnly: nameOnly }
+	return TraceArgument{Name: name, Value: value, nameOnly: nameOnly}
 }
 
-func Trarg(name string, value interface{}) (TraceArgument) {
+func Trarg(name string, value interface{}) TraceArgument {
 
 	return makeTraceArgument(name, false, value)
 }
 
-func TrargNameOnly(name string, value interface{}) (TraceArgument) {
+func TrargNameOnly(name string, value interface{}) TraceArgument {
 
 	return makeTraceArgument(name, true, value)
 }
 
 // Provides named-argument tracing of a function/method, as in:
 //
-//  import d "github.com/synesissoftware/Diagnosticism.Go"
+//	 import d "github.com/synesissoftware/Diagnosticism.Go"
 //
-//	func SomeFunction(x, y int, order string) {
+//		func SomeFunction(x, y int, order string) {
 //
-//		d.Trace("SomeFunction",
-//			d.Trarg("x", x),
-//			d.Trarg("y", y),
-//			d.TrargNameOnly("order", order),
-//		)
+//			d.Trace("SomeFunction",
+//				d.Trarg("x", x),
+//				d.Trarg("y", y),
+//				d.TrargNameOnly("order", order),
+//			)
 //
-//		. . . impl. of SomeFunc()
-//	}
+//			. . . impl. of SomeFunc()
+//		}
 //
-// The first parameter function_name is a string, and the remaining
+// The first parameter `function_name` is a string, and the remaining
 // parameters are a variable length list of TraceArgument instances, which
-// may be created using the Trarg() and TrargNameOnly() functions
-//
+// may be created using the `Trarg()` and `TrargNameOnly()` functions
 func Trace(function_name string, args ...TraceArgument) {
 
 	if !enableTracing {
@@ -137,7 +134,7 @@ func Trace(function_name string, args ...TraceArgument) {
 	buffer.WriteString(function_name)
 	buffer.WriteString("(")
 
-	for i, arg := range(args) {
+	for i, arg := range args {
 
 		if i != 0 {
 
@@ -155,5 +152,3 @@ func Trace(function_name string, args ...TraceArgument) {
 }
 
 /* ///////////////////////////// end of file //////////////////////////// */
-
-

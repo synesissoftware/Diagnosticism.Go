@@ -1,8 +1,6 @@
-
 package diagnosticism_test
 
 import (
-
 	d "github.com/synesissoftware/Diagnosticism.Go"
 	sev "github.com/synesissoftware/Diagnosticism.Go/severity"
 	stegol "github.com/synesissoftware/STEGoL"
@@ -17,10 +15,10 @@ func Test_custom_BackEnd_no_time(t *testing.T) {
 
 	buf := new(bytes.Buffer)
 
-	d.SetBackEnd(&d.BackEnd {
+	d.SetBackEnd(&d.BackEnd{
 
-		Flags		:	d.NoTime,
-		HandlerFunc	:	func(be *d.BackEnd, bee *d.BackEndEntry) {
+		Flags: d.NoTime,
+		HandlerFunc: func(be *d.BackEnd, bee *d.BackEndEntry) {
 
 			fmt.Fprintf(buf, "%s : %s\n", bee.Severity, bee.Message)
 		},
@@ -45,10 +43,10 @@ func Test_custom_BackEnd_no_time_and_upcase_severities(t *testing.T) {
 
 	buf := new(bytes.Buffer)
 
-	d.SetBackEnd(&d.BackEnd {
+	d.SetBackEnd(&d.BackEnd{
 
-		Flags		:	d.NoTime,
-		HandlerFunc	:	func(be *d.BackEnd, bee *d.BackEndEntry) {
+		Flags: d.NoTime,
+		HandlerFunc: func(be *d.BackEnd, bee *d.BackEndEntry) {
 
 			fmt.Fprintf(buf, "%s : %s\n", strings.ToUpper(bee.Severity.String()), bee.Message)
 		},
@@ -68,4 +66,3 @@ func Test_custom_BackEnd_no_time_and_upcase_severities(t *testing.T) {
 
 	stegol.CheckStringEqual(t, "NOTICE : message-1\nWARNING : message-2\n", buf.String())
 }
-
