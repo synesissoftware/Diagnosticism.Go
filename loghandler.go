@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        loghandler.go
+ * File:    loghandler.go
  *
- * Purpose:     LogHandler for Diagnosticism.Go
+ * Purpose: LogHandler for Diagnosticism.Go
  *
- * Created:     1st June 2019
- * Updated:     20th July 2020
+ * Created: 1st June 2019
+ * Updated: 22nd February 2025
  *
- * Home:        https://github.com/synesissoftware/Diagnosticism.Go
+ * Home:    https://github.com/synesissoftware/Diagnosticism.Go
  *
- * Copyright (c) 2019-2020, Matthew Wilson
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -39,11 +39,9 @@
  *
  * ////////////////////////////////////////////////////////////////////// */
 
-
 package diagnosticism
 
 import (
-
 	severity "github.com/synesissoftware/Diagnosticism.Go/severity"
 
 	"bytes"
@@ -56,45 +54,43 @@ type LogRequestFlags int
 const (
 
 	// Do not log before the request
-	LogRequest_NotBefore		LogRequestFlags	=	1 << iota
+	LogRequest_NotBefore LogRequestFlags = 1 << iota
 	// Do not log after the request
-	LogRequest_NotAfter			LogRequestFlags	=	1 << iota
+	LogRequest_NotAfter LogRequestFlags = 1 << iota
 	// Do not include a BEFORE/AFTER prefix
-	LogRequest_NoWhenLabel		LogRequestFlags	=	1 << iota
+	LogRequest_NoWhenLabel LogRequestFlags = 1 << iota
 
 	// Do not include the method
-	LogRequest_NotMethod		LogRequestFlags	=	1 << iota
+	LogRequest_NotMethod LogRequestFlags = 1 << iota
 	// Do not include the URL
-	LogRequest_NotURL			LogRequestFlags	=	1 << iota
+	LogRequest_NotURL LogRequestFlags = 1 << iota
 	// Include the protocol
-	LogRequest_Protocol			LogRequestFlags	=	1 << iota
+	LogRequest_Protocol LogRequestFlags = 1 << iota
 )
 
 const (
-
-	defaultLogRequestFlags		LogRequestFlags	=	0
-	elementLogRequestWhenMask	LogRequestFlags	=	LogRequest_NotBefore | LogRequest_NotAfter
-	elementLogRequestTypeMask	LogRequestFlags	=	LogRequest_NotMethod | LogRequest_NotURL | LogRequest_Protocol
+	defaultLogRequestFlags    LogRequestFlags = 0
+	elementLogRequestWhenMask LogRequestFlags = LogRequest_NotBefore | LogRequest_NotAfter
+	elementLogRequestTypeMask LogRequestFlags = LogRequest_NotMethod | LogRequest_NotURL | LogRequest_Protocol
 )
 
 const (
-
-	AfterPrefix		=	"AFTER "
-	BeforePrefix	=	"BEFORE "
+	AfterPrefix  = "AFTER "
+	BeforePrefix = "BEFORE "
 )
 
 type logStringFunc func(LogRequestFlags, *http.Request) string
 
-var logStringFunctions = map[LogRequestFlags]logStringFunc {
+var logStringFunctions = map[LogRequestFlags]logStringFunc{
 
-	0 : logString_M_U_p,
-	LogRequest_NotMethod : logString_m_U_p,
-	LogRequest_NotURL : logString_M_u_p,
-	LogRequest_Protocol : logString_M_U_P,
-	LogRequest_NotMethod | LogRequest_NotURL : logString_X_X_X,
-	LogRequest_NotMethod | LogRequest_Protocol : logString_X_X_X,
-	LogRequest_NotURL | LogRequest_Protocol : logString_X_X_X,
-	LogRequest_NotMethod | LogRequest_NotURL | LogRequest_Protocol : logString_X_X_X,
+	0:                                        logString_M_U_p,
+	LogRequest_NotMethod:                     logString_m_U_p,
+	LogRequest_NotURL:                        logString_M_u_p,
+	LogRequest_Protocol:                      logString_M_U_P,
+	LogRequest_NotMethod | LogRequest_NotURL: logString_X_X_X,
+	LogRequest_NotMethod | LogRequest_Protocol:                     logString_X_X_X,
+	LogRequest_NotURL | LogRequest_Protocol:                        logString_X_X_X,
+	LogRequest_NotMethod | LogRequest_NotURL | LogRequest_Protocol: logString_X_X_X,
 }
 
 func logString_M_U_p(flags LogRequestFlags, req *http.Request) string {
@@ -117,7 +113,7 @@ func logString_X_X_X(flags LogRequestFlags, req *http.Request) string {
 
 	var buff bytes.Buffer
 
-	if 0 != (LogRequest_Protocol & flags ) {
+	if 0 != (LogRequest_Protocol & flags) {
 
 		buff.WriteString(req.Proto)
 	}
@@ -145,10 +141,9 @@ func logString_X_X_X(flags LogRequestFlags, req *http.Request) string {
 	return buff.String()
 }
 
+func parseSeverityFromArgs(options ...interface{}) severity.Severity {
 
-func parseSeverityFromArgs(options ...interface{}) (severity.Severity) {
-
-	for _, option := range(options) {
+	for _, option := range options {
 
 		switch v := option.(type) {
 
@@ -165,12 +160,12 @@ func parseSeverityFromArgs(options ...interface{}) (severity.Severity) {
 // given flags and options
 //
 // Parameters:
-//  - +flags+ (LogRequestFlags) A combination of flags that moderate the behaviour
-//  - +options+ Optional arguments (see below)
+//   - +flags+ (LogRequestFlags) A combination of flags that moderate the behaviour
+//   - +options+ Optional arguments (see below)
 //
 // Options:
-//  - * (severity.Severity) The first option of this type is used for before and/or after logging; if none specified, before and/or after logging is done using severity.Informational
-func LogRequest(flags LogRequestFlags, options ...interface{}) (func(http.Handler) (http.Handler)) {
+//   - * (severity.Severity) The first option of this type is used for before and/or after logging; if none specified, before and/or after logging is done using severity.Informational
+func LogRequest(flags LogRequestFlags, options ...interface{}) func(http.Handler) http.Handler {
 
 	sev := parseSeverityFromArgs(options)
 
@@ -205,9 +200,9 @@ func LogRequest(flags LogRequestFlags, options ...interface{}) (func(http.Handle
 		break
 	}
 
-	return func(h http.Handler) (http.Handler) {
+	return func(h http.Handler) http.Handler {
 
-		return http.HandlerFunc(func (resp http.ResponseWriter, req *http.Request) {
+		return http.HandlerFunc(func(resp http.ResponseWriter, req *http.Request) {
 
 			logMsg := logStringFunctions[logDisplayFlags](logDisplayFlags, req)
 
@@ -226,5 +221,3 @@ func LogRequest(flags LogRequestFlags, options ...interface{}) (func(http.Handle
 }
 
 /* ///////////////////////////// end of file //////////////////////////// */
-
-
