@@ -1,5 +1,11 @@
 # **Diagnosticism.Go** Changes
 
+
+## 0.7.0 - 22nd February 2025
+
+* added **Debugging** API, which provides `FileLine()` and `FileLineFunction()` functions;
+
+
 ## 0.6.1 - 22nd February 2025
 
 * added **go.mod** and **go.sum**;
