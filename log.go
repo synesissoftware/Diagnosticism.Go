@@ -1,14 +1,14 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        log.go
+ * File:    log.go
  *
- * Purpose:     Log API for Diagnosticism.Go
+ * Purpose: Log API for Diagnosticism.Go
  *
- * Created:     30th May 2019
- * Updated:     22nd July 2020
+ * Created: 30th May 2019
+ * Updated: 22nd February 2025
  *
- * Home:        https://github.com/synesissoftware/Diagnosticism.Go
+ * Home:    https://github.com/synesissoftware/Diagnosticism.Go
  *
- * Copyright (c) 2019-2020, Matthew Wilson
+ * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -39,11 +39,9 @@
  *
  * ////////////////////////////////////////////////////////////////////// */
 
-
 package diagnosticism
 
 import (
-
 	sev "github.com/synesissoftware/Diagnosticism.Go/severity"
 
 	"bytes"
@@ -59,17 +57,15 @@ import (
 type BackEndFlag int
 
 const (
-
-	NoPrefix			BackEndFlag	=	1
-	NoPrefixSeparator	BackEndFlag	=	2
-	NoTime				BackEndFlag	=	4
+	NoPrefix          BackEndFlag = 1
+	NoPrefixSeparator BackEndFlag = 2
+	NoTime            BackEndFlag = 4
 )
 
 type BackEndEntry struct {
-
-	Severity	sev.Severity
-	Time		time.Time
-	Message		string
+	Severity sev.Severity
+	Time     time.Time
+	Message  string
 }
 
 // The BackEndHandlerFunc is called when a log statement is to be emitted
@@ -78,13 +74,13 @@ type BackEndHandlerFunc func(be *BackEnd, bee *BackEndEntry)
 type BackEnd struct {
 
 	// Flags that control the back-end behaviour/features
-	Flags			BackEndFlag
+	Flags BackEndFlag
 	// The back-end handler function. May not be nil
-	HandlerFunc		BackEndHandlerFunc
+	HandlerFunc BackEndHandlerFunc
 	// The string to be used as a separator. If the empty string, then the
 	// default separator - " : " - is used. If no separator is desired, the
 	// NoPrefixSeparator flag must be specified
-	PrefixSeparator	string
+	PrefixSeparator string
 }
 
 func defaultBackEndHandlerFunc(be *BackEnd, bee *BackEndEntry) {
@@ -92,17 +88,16 @@ func defaultBackEndHandlerFunc(be *BackEnd, bee *BackEndEntry) {
 	log.Println(bee.Severity.String() + " : " + bee.Message)
 }
 
-var defaultBackEnd = BackEnd {
+var defaultBackEnd = BackEnd{
 
-	Flags			:	0,
-	HandlerFunc		:	defaultBackEndHandlerFunc,
-	PrefixSeparator	:	" : ",
+	Flags:           0,
+	HandlerFunc:     defaultBackEndHandlerFunc,
+	PrefixSeparator: " : ",
 }
 
 var activeBE *BackEnd = &defaultBackEnd
 
-
-func check_atomically() (bool) {
+func check_atomically() bool {
 
 	var be BackEndHandlerFunc
 	var ui uintptr
@@ -116,8 +111,7 @@ func check_atomically() (bool) {
 }
 
 var atomicallyBE = check_atomically()
-var mxBE = &sync.Mutex {}
-
+var mxBE = &sync.Mutex{}
 
 func SetBackEnd(be *BackEnd) (r *BackEnd) {
 
@@ -147,7 +141,7 @@ func SetBackEnd(be *BackEnd) (r *BackEnd) {
 
 	return
 }
-func GetBackEndHandlerFunc() (*BackEnd) {
+func GetBackEndHandlerFunc() *BackEnd {
 
 	return activeBE
 }
@@ -167,13 +161,13 @@ func log_s(severity sev.Severity, message string) {
 
 	be := activeBE
 
-	bee := BackEndEntry {
+	bee := BackEndEntry{
 
-		Severity	:	severity,
-		Message		:	message,
+		Severity: severity,
+		Message:  message,
 	}
 
-	if (0 == (NoTime & be.Flags)) {
+	if 0 == (NoTime & be.Flags) {
 
 		bee.Time = time.Now()
 	}
@@ -190,7 +184,7 @@ func Log(severity sev.Severity, args ...interface{}) {
 
 	var buffer bytes.Buffer
 
-	for _, arg := range(args) {
+	for _, arg := range args {
 
 		s := fmt.Sprintf("%v", arg)
 
@@ -215,5 +209,3 @@ func Logf(severity sev.Severity, format string, args ...interface{}) {
 }
 
 /* ///////////////////////////// end of file //////////////////////////// */
-
-

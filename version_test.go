@@ -1,8 +1,6 @@
-
 package diagnosticism_test
 
 import (
-
 	d "github.com/synesissoftware/Diagnosticism.Go"
 	stegol "github.com/synesissoftware/STEGoL"
 
@@ -19,4 +17,3 @@ func Test_Version(t *testing.T) {
 
 	stegol.CheckStringEqual(t, "0.6.0", v_jnp)
 }
-
