@@ -1,13 +1,18 @@
 # **Diagnosticism.Go** Changes
 
-## 0.6.1 - XXXX
+## 0.6.1 - 22nd February 2025
 
-* ~ xxxx
+* added **go.mod** and **go.sum**;
+* refactored module version in terms of **ver2go**;
+* added **examples/version.go** example;
+* general reformatting with latest (1.24) version of Go;
+* added VS Code settings;
 
 
-## 0.6.0 - XXXX
+## 0.6.0 - 23rd July 2020
 
-* ~ xxxx
+* added `BackEnd`, `BackEndHandlerFunc` that allows `Log()` behaviour to be customised;
+* added logging API tests;
 
 
 ## 0.5.0.1 - 22nd July 2020

@@ -51,7 +51,7 @@ Defect reports, feature requests, and pull requests are welcome on https://githu
 
 ### Dependencies
 
-* [**ver2go**](https://github.com/synesissoftware/ver2go.Go/)
+* [**ver2go**](https://github.com/synesissoftware/ver2go/)
 
 ### Dependent projects
 
