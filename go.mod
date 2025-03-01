@@ -4,8 +4,8 @@ go 1.23.6
 
 require (
 	github.com/stretchr/testify v1.10.0
-	github.com/synesissoftware/STEGoL v0.0.0-20190330001846-560e2a134da1
-	github.com/synesissoftware/ver2go v0.0.0-20250213011429-1fbcb230c744
+	github.com/synesissoftware/STEGoL v0.2.0
+	github.com/synesissoftware/ver2go v0.0.0-alpha3
 )
 
 require (
