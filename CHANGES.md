@@ -1,7 +1,12 @@
 # **Diagnosticism.Go** Changes
 
 
-## 0.7.0 - 22nd February 2025
+## 0.7.0 - 25th March 2025
+
+* formal release
+
+
+## 0.7.0-alpha1 - 22nd February 2025
 
 * added **Debugging** API, which provides `FileLine()` and `FileLineFunction()` functions;
 

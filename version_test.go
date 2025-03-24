@@ -1,16 +1,18 @@
-package diagnosticism
+package diagnosticism_test
 
 import (
-	"testing"
+	. "github.com/synesissoftware/Diagnosticism.Go"
 
 	"github.com/stretchr/testify/require"
+
+	"testing"
 )
 
 const (
 	Expected_VersionMajor uint16 = 0
 	Expected_VersionMinor uint16 = 7
 	Expected_VersionPatch uint16 = 0
-	Expected_VersionAB    uint16 = 0x4001
+	Expected_VersionAB    uint16 = 0xFFFF
 )
 
 func Test_Version_Elements(t *testing.T) {
@@ -21,9 +23,9 @@ func Test_Version_Elements(t *testing.T) {
 }
 
 func Test_Version(t *testing.T) {
-	require.Equal(t, uint64(0x0000_0007_0000_4001), Version)
+	require.Equal(t, uint64(0x0000_0007_0000_FFFF), Version)
 }
 
 func Test_Version_String(t *testing.T) {
-	require.Equal(t, "0.7.0-alpha1", VersionString())
+	require.Equal(t, "0.7.0", VersionString())
 }
