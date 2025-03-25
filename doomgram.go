@@ -244,3 +244,100 @@ func (d *DOOMGram) tryAddNsToTotalAndUpdateMinmaxAndCount(time_in_ns uint64) boo
 		return true
 	}
 }
+
+// NOTE: taken directly from Diagnosticism.Rust
+func calc_doom(v uint64) uint32 {
+
+	if v >= 100000000 {
+		//    return count_decimal_digits(v);
+	} else {
+		if v >= 10000 {
+			if v >= 1000000 {
+				if v >= 10000000 {
+					return 8
+				} else {
+					return 7
+				}
+			} else {
+				if v >= 100000 {
+					return 6
+				} else {
+					return 5
+				}
+			}
+		} else {
+			if v >= 100 {
+				if v >= 1000 {
+					return 4
+				} else {
+					return 3
+				}
+			} else {
+				if v >= 10 {
+					return 2
+				} else {
+					if v > 0 {
+						return 1
+					} else {
+						return 0
+					}
+				}
+			}
+		}
+	}
+
+	if 0 == v {
+		return 0
+	} else {
+		r := uint32(0)
+		v := v
+
+		for 0 != v {
+			v /= 10
+			r += 1
+		}
+
+		return r
+	}
+}
+
+// NOTE: taken directly from Diagnosticism.Rust
+func gram_doom_to_char(
+	doom uint32,
+	ch_0 byte,
+	ch_overflow uint8,
+	rng []byte,
+) byte {
+	if 0 == doom {
+		return ch_0
+	} else {
+		if doom > uint32(len(rng)) {
+			return ch_overflow
+		} else {
+			return rng[doom-1]
+		}
+	}
+}
+
+func (d DOOMGram) ToStrip() string {
+	var strip [12]byte
+
+	ch_0 := byte('_')
+	ch_overflow := byte('*')
+	rng := []byte("abcdefghijklmnopqrstuvwxyz")
+
+	strip[0] = gram_doom_to_char(calc_doom(d.NumEventsIn1ns()), ch_0, ch_overflow, rng)
+	strip[1] = gram_doom_to_char(calc_doom(d.NumEventsIn10ns()), ch_0, ch_overflow, rng)
+	strip[2] = gram_doom_to_char(calc_doom(d.NumEventsIn100ns()), ch_0, ch_overflow, rng)
+	strip[3] = gram_doom_to_char(calc_doom(d.NumEventsIn1us()), ch_0, ch_overflow, rng)
+	strip[4] = gram_doom_to_char(calc_doom(d.NumEventsIn10us()), ch_0, ch_overflow, rng)
+	strip[5] = gram_doom_to_char(calc_doom(d.NumEventsIn100us()), ch_0, ch_overflow, rng)
+	strip[6] = gram_doom_to_char(calc_doom(d.NumEventsIn1ms()), ch_0, ch_overflow, rng)
+	strip[7] = gram_doom_to_char(calc_doom(d.NumEventsIn10ms()), ch_0, ch_overflow, rng)
+	strip[8] = gram_doom_to_char(calc_doom(d.NumEventsIn100ms()), ch_0, ch_overflow, rng)
+	strip[9] = gram_doom_to_char(calc_doom(d.NumEventsIn1s()), ch_0, ch_overflow, rng)
+	strip[10] = gram_doom_to_char(calc_doom(d.NumEventsIn10s()), ch_0, ch_overflow, rng)
+	strip[11] = gram_doom_to_char(calc_doom(d.NumEventsIe100s()), ch_0, ch_overflow, rng)
+
+	return string(strip[:])
+}
