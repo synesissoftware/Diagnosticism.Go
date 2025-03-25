@@ -1,5 +1,10 @@
 package diagnosticism
 
+// Decimal Order-Of-Magnitude frequency histoGRAM
+//
+// # Note:
+// This is a Go port of the equivalent `stlsoft::doomgram` class from the
+// **STLSoft** libraries (https://github.com/synesissoftware/STLSoft-1.11).
 type DOOMGram struct {
 	event_count         uint64
 	event_time_total    uint64
@@ -20,10 +25,12 @@ type DOOMGram struct {
 	num_events_ge_100s  uint64
 }
 
+// Number of events counted.
 func (d DOOMGram) EventCount() uint64 {
 	return d.event_count
 }
 
+// Attempts to obtain the total event time (in nanoseconds).
 func (d DOOMGram) EventTimeTotal() (bool, uint64) {
 	if d.has_overflowed {
 		return false, 0
@@ -32,14 +39,18 @@ func (d DOOMGram) EventTimeTotal() (bool, uint64) {
 	}
 }
 
+// Obtains the total event time (in nanoseconds), regardless of whether
+// overflow has occurred.
 func (d DOOMGram) EventTimeTotalRaw() uint64 {
 	return d.event_time_total
 }
 
+// Indicates whether overflow has occurred.
 func (d DOOMGram) Overflowed() bool {
 	return d.has_overflowed
 }
 
+// Attempts to obtain the minimum event time.
 func (d DOOMGram) MinEventTime() (bool, uint64) {
 	if 0 == d.event_count {
 		return false, 0
@@ -48,6 +59,7 @@ func (d DOOMGram) MinEventTime() (bool, uint64) {
 	}
 }
 
+// Attempts to obtain the maximum event time.
 func (d DOOMGram) MaxEventTime() (bool, uint64) {
 	if 0 == d.event_count {
 		return false, 0
@@ -56,50 +68,62 @@ func (d DOOMGram) MaxEventTime() (bool, uint64) {
 	}
 }
 
+// Number of events counted in the interval [1ns, 10ns).
 func (d DOOMGram) NumEventsIn1ns() uint64 {
 	return d.num_events_in_1ns
 }
 
+// Number of events counted in the interval [10ns, 100ns).
 func (d DOOMGram) NumEventsIn10ns() uint64 {
 	return d.num_events_in_10ns
 }
 
+// Number of events counted in the interval [100ns, 1µs).
 func (d DOOMGram) NumEventsIn100ns() uint64 {
 	return d.num_events_in_100ns
 }
 
+// Number of events counted in the interval [1µs, 10µs).
 func (d DOOMGram) NumEventsIn1us() uint64 {
 	return d.num_events_in_1us
 }
 
+// Number of events counted in the interval [10µs, 100µs).
 func (d DOOMGram) NumEventsIn10us() uint64 {
 	return d.num_events_in_10us
 }
 
+// Number of events counted in the interval [100µs, 1ms).
 func (d DOOMGram) NumEventsIn100us() uint64 {
 	return d.num_events_in_100us
 }
 
+// Number of events counted in the interval [1ms, 10ms).
 func (d DOOMGram) NumEventsIn1ms() uint64 {
 	return d.num_events_in_1ms
 }
 
+// Number of events counted in the interval [10ms, 100ms).
 func (d DOOMGram) NumEventsIn10ms() uint64 {
 	return d.num_events_in_10ms
 }
 
+// Number of events counted in the interval [100ms, 1s).
 func (d DOOMGram) NumEventsIn100ms() uint64 {
 	return d.num_events_in_100ms
 }
 
+// Number of events counted in the interval [1s, 10s).
 func (d DOOMGram) NumEventsIn1s() uint64 {
 	return d.num_events_in_1s
 }
 
+// Number of events counted in the interval [10s, 100s).
 func (d DOOMGram) NumEventsIn10s() uint64 {
 	return d.num_events_in_10s
 }
 
+// Number of events counted in the interval [100s, ∞).
 func (d DOOMGram) NumEventsIe100s() uint64 {
 	return d.num_events_ge_100s
 }
@@ -319,6 +343,8 @@ func gram_doom_to_char(
 	}
 }
 
+// Converts a [DOOMGram] instance into a timing strip string
+// representation.
 func (d DOOMGram) ToStrip() string {
 	var strip [12]byte
 
