@@ -34,3 +34,7 @@ When executed, it gives output (to the standard error stream) along the lines of
 2019/07/08 08:29:44 Informational : i=10
 2019/07/08 08:29:44 Informational : i=%!d(string=10)
 ```
+
+
+<!-- ########################### end of file ########################### -->
+

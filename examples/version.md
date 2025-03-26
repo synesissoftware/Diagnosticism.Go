@@ -26,3 +26,7 @@ When executed, it gives output (to the standard error stream) along the lines of
 ```
 Diagnosticism v0.6.1
 ```
+
+
+<!-- ########################### end of file ########################### -->
+

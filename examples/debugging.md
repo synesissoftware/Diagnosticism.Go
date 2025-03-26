@@ -38,3 +38,7 @@ When executed, it gives output (to the standard error stream) along the lines of
 ~/forks/synesissoftware/Diagnosticism/Diagnosticism.Go/examples/debugging.go:9: here
 ~/forks/synesissoftware/Diagnosticism/Diagnosticism.Go/examples/debugging.go:10:main.f: here
 ```
+
+
+<!-- ########################### end of file ########################### -->
+
