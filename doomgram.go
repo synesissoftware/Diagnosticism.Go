@@ -4,10 +4,12 @@
 
 /*
  * Created: 25th March 2025
- * Updated: 26th March 2025
+ * Updated: 27th March 2025
  */
 
 package diagnosticism
+
+import "time"
 
 // Decimal Order-Of-Magnitude frequency histoGRAM
 //
@@ -135,6 +137,19 @@ func (d DOOMGram) NumEventsIn10s() uint64 {
 // Number of events counted in the interval [100s, ∞).
 func (d DOOMGram) NumEventsIe100s() uint64 {
 	return d.num_events_ge_100s
+}
+
+func (d *DOOMGram) PushEventDuration(duration time.Duration) bool {
+
+	var time_in_ns_i int64 = int64(duration)
+
+	if time_in_ns_i < 0 {
+		time_in_ns_i = -time_in_ns_i
+	}
+
+	var time_in_ns = uint64(time_in_ns_i)
+
+	return d.PushEventTimeNs(time_in_ns)
 }
 
 func (d *DOOMGram) PushEventTimeNs(time_in_ns uint64) bool {

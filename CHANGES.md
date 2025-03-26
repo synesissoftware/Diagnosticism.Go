@@ -1,6 +1,13 @@
 # **Diagnosticism.Go** Changes
 
 
+## 0.8.0-alpha2 - 27th March 2025
+
+* added `DOOMGram#PushEventDuration()`;
+* `DOOMGram` test(s) fixes;
+* added **examples/doomgram.go**;
+
+
 ## 0.8.0-alpha1 - 26th March 2025
 
 * added **DOOMGram** API;

@@ -51,7 +51,7 @@ func Test_DOOMGram_Default(t *testing.T) {
 	require.Equal(t, uint64(0), dg.NumEventsIn10s())
 	require.Equal(t, uint64(0), dg.NumEventsIe100s())
 
-	// require.Equal(t, "____________", dg.to_strip());
+	require.Equal(t, "____________", dg.ToStrip())
 }
 
 func Test_DOOMGram_SINGLE_TIMING_EVENT(t *testing.T) {
@@ -100,7 +100,7 @@ func Test_DOOMGram_SINGLE_TIMING_EVENT(t *testing.T) {
 	require.Equal(t, uint64(0), dg.NumEventsIn10s())
 	require.Equal(t, uint64(0), dg.NumEventsIe100s())
 
-	// require.Equal(t, "_______a____", dg.to_strip());
+	require.Equal(t, "_______a____", dg.ToStrip())
 }
 
 func Test_DOOMGram_UNIFORM_SPREAD_TIMINGS_1(t *testing.T) {
@@ -160,7 +160,7 @@ func Test_DOOMGram_UNIFORM_SPREAD_TIMINGS_1(t *testing.T) {
 	require.Equal(t, uint64(1), dg.NumEventsIn10s())
 	require.Equal(t, uint64(1), dg.NumEventsIe100s())
 
-	// require.Equal(t, "aaaaaaaaaaaa", dg.to_strip());
+	require.Equal(t, "aaaaaaaaaaaa", dg.ToStrip())
 }
 
 func Test_DOOMGram_UNIFORM_SPREAD_TIMINGS_2(t *testing.T) {
@@ -220,7 +220,7 @@ func Test_DOOMGram_UNIFORM_SPREAD_TIMINGS_2(t *testing.T) {
 	require.Equal(t, uint64(1), dg.NumEventsIn10s())
 	require.Equal(t, uint64(1), dg.NumEventsIe100s())
 
-	// require.Equal(t, "aaaaaaaaaaaa", dg.to_strip());
+	require.Equal(t, "aaaaaaaaaaaa", dg.ToStrip())
 }
 
 func Test_DOOMGram_UNIFORM_SPREAD_TIMINGS_3(t *testing.T) {
@@ -280,7 +280,7 @@ func Test_DOOMGram_UNIFORM_SPREAD_TIMINGS_3(t *testing.T) {
 	require.Equal(t, uint64(1), dg.NumEventsIn10s())
 	require.Equal(t, uint64(1), dg.NumEventsIe100s())
 
-	// require.Equal(t, "aaaaaaaaaaaa", dg.to_strip());
+	require.Equal(t, "aaaaaaaaaaaa", dg.ToStrip())
 }
 
 func Test_DOOMGram_UNIFORM_SPREAD_TIMINGS_4(t *testing.T) {
@@ -337,7 +337,7 @@ func Test_DOOMGram_UNIFORM_SPREAD_TIMINGS_4(t *testing.T) {
 	require.Equal(t, uint64(1), dg.NumEventsIn10s())
 	require.Equal(t, uint64(1), dg.NumEventsIe100s())
 
-	// require.Equal(t, "aaaaaaaaaaaa", dg.to_strip());
+	require.Equal(t, "___aaaaaaaaa", dg.ToStrip())
 }
 
 func Test_DOOMGram_SEVERAL_DISTINCT_TIMINGS(t *testing.T) {
@@ -393,7 +393,7 @@ func Test_DOOMGram_SEVERAL_DISTINCT_TIMINGS(t *testing.T) {
 	require.Equal(t, uint64(0), dg.NumEventsIn10s())
 	require.Equal(t, uint64(1), dg.NumEventsIe100s())
 
-	// require.Equal(t, "_a_aa___aa_a", dg.to_strip());
+	require.Equal(t, "_a_aa___aa_a", dg.ToStrip())
 }
 
 func Test_DOOMGram_SEVERAL_INTERSECTING_TIMINGS(t *testing.T) {
@@ -451,7 +451,7 @@ func Test_DOOMGram_SEVERAL_INTERSECTING_TIMINGS(t *testing.T) {
 	require.Equal(t, uint64(0), dg.NumEventsIn10s())
 	require.Equal(t, uint64(1), dg.NumEventsIe100s())
 
-	// require.Equal(t, "_a_aa___aa_a", dg.to_strip());
+	require.Equal(t, "_a_aa___aa_a", dg.ToStrip())
 }
 
 func TEST_doomgram_OVERFLOW_BY_SECONDS(t *testing.T) {
