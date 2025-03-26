@@ -1,7 +1,7 @@
 # **Diagnosticism.Go** Changes
 
 
-## 0.8.0-alpha1 - 25th March 2025
+## 0.8.0-alpha1 - 26th March 2025
 
 * added **DOOMGram** API;
 
