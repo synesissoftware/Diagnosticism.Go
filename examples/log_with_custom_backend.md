@@ -10,7 +10,6 @@ Example illustrating use of Contingent Report API with custom logging back-end
 package main
 
 import (
-
 	d "github.com/synesissoftware/Diagnosticism.Go"
 	sev "github.com/synesissoftware/Diagnosticism.Go/severity"
 
@@ -48,7 +47,6 @@ func main() {
 
 	d.Log(sev.Info, "a third message")
 }
-
 ```
 
 ## Execution
