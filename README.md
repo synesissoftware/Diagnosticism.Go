@@ -1,6 +1,7 @@
 # Diagnosticism.Go <!-- omit in toc -->
 
 [![Go Reference](https://pkg.go.dev/badge/github.com/synesissoftware/Diagnosticism.Go.svg)](https://pkg.go.dev/github.com/synesissoftware/Diagnosticism.Go)
+[![Go Report Card](https://goreportcard.com/badge/github.com/synesissoftware/Diagnosticism.Go)](https://goreportcard.com/report/github.com/synesissoftware/Diagnosticism.Go)
 
 Basic diagnostic facilities, for Go
 
