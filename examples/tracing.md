@@ -10,7 +10,6 @@ Example illustrating use of Trace API.
 package main
 
 import (
-
 	d "github.com/synesissoftware/Diagnosticism.Go"
 )
 

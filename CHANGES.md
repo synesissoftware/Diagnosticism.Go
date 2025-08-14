@@ -1,6 +1,13 @@
 # **Diagnosticism.Go** Changes
 
 
+## 0.9.0 - 15th August 2025
+
+* added `NameTypeOnly` and `TruncateValue` flags;
+* added **examples/libver.go**;
+* project boilerplate;
+
+
 ## 0.8.0 - 27th March 2025
 
 * added `DOOMGram#PushEventDuration()`;

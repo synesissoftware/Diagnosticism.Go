@@ -8,6 +8,8 @@ github.com/synesissoftware/STEGoL v0.2.0 h1:WdDUtUHFJP4uqwGFoUH/b0Bc/+u4a36KNGAs
 github.com/synesissoftware/STEGoL v0.2.0/go.mod h1:fLXaHg0WlvcjPSX669XZWm+FNyU6ezvGoEWmWSc6I8A=
 github.com/synesissoftware/ver2go v0.0.0-alpha3 h1:H/aLEs3v6xdZx4ir8pNJpNr44bXvI+Vt1MsA43ZZX6E=
 github.com/synesissoftware/ver2go v0.0.0-alpha3/go.mod h1:ZvENMYQ3mjb9e5ymZL5OyQAa56ckYVTvAvycvYg8Vlw=
+github.com/synesissoftware/ver2go v0.1.1 h1:1EiJsX64Cw8dUU+UGrWUU0dkvmlVtmWkaFyvaSsiEkc=
+github.com/synesissoftware/ver2go v0.1.1/go.mod h1:ZvENMYQ3mjb9e5ymZL5OyQAa56ckYVTvAvycvYg8Vlw=
 gopkg.in/check.v1 v0.0.0-20161208181325-20d25e280405 h1:yhCVgyC4o1eVCa2tZl7eS0r+SDo693bJlVdllGtEeKM=
 gopkg.in/check.v1 v0.0.0-20161208181325-20d25e280405/go.mod h1:Co6ibVJAznAaIkqp8huTwlJQCZ016jof/cbN4VW5Yz0=
 gopkg.in/yaml.v3 v3.0.1 h1:fxVm/GzAzEWqLHuvctI91KS9hhNmmWOoWu0XTYJS7CA=
