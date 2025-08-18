@@ -1,9 +1,11 @@
 # Diagnosticism.Go <!-- omit in toc -->
 
+[![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 [![GitHub release](https://img.shields.io/github/v/release/synesissoftware/Diagnosticism.Go.svg)](https://github.com/synesissoftware/Diagnosticism.Go/releases/latest)
-[![Go Reference](https://pkg.go.dev/badge/github.com/synesissoftware/Diagnosticism.Go.svg)](https://pkg.go.dev/github.com/synesissoftware/Diagnosticism.Go)
-[![Go Report Card](https://goreportcard.com/badge/github.com/synesissoftware/Diagnosticism.Go)](https://goreportcard.com/report/github.com/synesissoftware/Diagnosticism.Go)
 [![Last Commit](https://img.shields.io/github/last-commit/synesissoftware/Diagnosticism.Go)](https://github.com/synesissoftware/Diagnosticism.Go/commits/master)
+[![Go](https://github.com/synesissoftware/Diagnosticism.Go/actions/workflows/go.yml/badge.svg)](https://github.com/synesissoftware/Diagnosticism.Go/actions/workflows/go.yml)
+[![Go Report Card](https://goreportcard.com/badge/github.com/synesissoftware/Diagnosticism.Go)](https://goreportcard.com/report/github.com/synesissoftware/Diagnosticism.Go)
+[![Go Reference](https://pkg.go.dev/badge/github.com/synesissoftware/Diagnosticism.Go.svg)](https://pkg.go.dev/github.com/synesissoftware/Diagnosticism.Go)
 
 Basic diagnostic facilities, for Go
 

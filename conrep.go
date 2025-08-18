@@ -4,7 +4,7 @@
  * Purpose: Contingent report API for Diagnosticism.Go
  *
  * Created: 31st May 2019
- * Updated: 22nd February 2025
+ * Updated: 18th August 2025
  *
  * Home:    https://github.com/synesissoftware/Diagnosticism.Go
  *
@@ -138,7 +138,7 @@ func ConRep(message string) {
 	conRepAddEol(severity.Failure, contingentReportWriter, message)
 }
 
-func ConRepf(format string, args ...interface{}) {
+func ConRepf(format string, args ...any) {
 
 	msg := fmt.Sprintf(format, args...)
 
@@ -154,7 +154,7 @@ func Abort(message string) {
 	os.Exit(1)
 }
 
-func Abortf(format string, args ...interface{}) {
+func Abortf(format string, args ...any) {
 
 	message := fmt.Sprintf(format, args...)
 

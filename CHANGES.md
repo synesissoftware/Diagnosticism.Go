@@ -1,6 +1,14 @@
 # **Diagnosticism.Go** Changes
 
 
+## 0.9.1-beta1 - 18th August 2025
+
+* GitHub Actions;
+* `interface{}` => `any`;
+* boilerplate;
+* documentation;
+
+
 ## 0.9.0 - 15th August 2025
 
 * added `NameTypeOnly` and `TruncateValue` flags;

@@ -4,7 +4,7 @@
 
 /*
  * Created: 5th March 2019
- * Updated: 28th March 2025
+ * Updated: 18th August 2025
  */
 
 package diagnosticism
@@ -45,7 +45,7 @@ const (
 // [TrargNameOnly].
 type TraceArgument struct {
 	Name  string
-	Value interface{}
+	Value any
 	Flags TraceArgumentFlags
 }
 
@@ -85,35 +85,35 @@ default_implementation:
 // Parameters:
 //   - +name+ (string) The name of the argument
 //   - +nameOnly+ (bool) Whether only the name (and type) is to be shown
-//   - +value+ (interface{}) The value of the argument
+//   - +value+ (any) The value of the argument
 //
 // Return: (TraceArgument) an instance
 //
 // Remarks: use of a boolean parameter is valid here because this is an
 // internal method.
-func makeTraceArgument(name string, flags TraceArgumentFlags, value interface{}) TraceArgument {
+func makeTraceArgument(name string, flags TraceArgumentFlags, value any) TraceArgument {
 	return TraceArgument{Name: name, Value: value, Flags: flags}
 }
 
 // Creates an argument descriptor that will trace the argument name, type,
 // and value.
-func Trarg(name string, value interface{}) TraceArgument {
+func Trarg(name string, value any) TraceArgument {
 	return makeTraceArgument(name, None, value)
 }
 
 // Creates an argument descriptor that will trace the argument name, but not
 // type and value.
-func TrargNameOnly(name string, value interface{}) TraceArgument {
+func TrargNameOnly(name string, value any) TraceArgument {
 	return makeTraceArgument(name, NameOnly, value)
 }
 
 // Creates an argument descriptor that will trace the argument name and
 // type, but not value.
-func TrargNameTypeOnly(name string, value interface{}) TraceArgument {
+func TrargNameTypeOnly(name string, value any) TraceArgument {
 	return makeTraceArgument(name, NameTypeOnly, value)
 }
 
-func TrargTrunc(name string, value interface{}) TraceArgument {
+func TrargTrunc(name string, value any) TraceArgument {
 	return makeTraceArgument(name, TruncateValue, value)
 }
 

@@ -4,7 +4,7 @@
  * Purpose: Log API for Diagnosticism.Go
  *
  * Created: 30th May 2019
- * Updated: 22nd February 2025
+ * Updated: 18th August 2025
  *
  * Home:    https://github.com/synesissoftware/Diagnosticism.Go
  *
@@ -175,7 +175,7 @@ func log_s(severity severity.Severity, message string) {
 	be.HandlerFunc(be, &bee)
 }
 
-func Log(severity severity.Severity, args ...interface{}) {
+func Log(severity severity.Severity, args ...any) {
 
 	if !enableLogging {
 
@@ -196,7 +196,7 @@ func Log(severity severity.Severity, args ...interface{}) {
 	log_s(severity, s)
 }
 
-func Logf(severity severity.Severity, format string, args ...interface{}) {
+func Logf(severity severity.Severity, format string, args ...any) {
 
 	if !enableLogging {
 

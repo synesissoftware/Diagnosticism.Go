@@ -4,7 +4,7 @@
  * Purpose: LogHandler for Diagnosticism.Go
  *
  * Created: 1st June 2019
- * Updated: 22nd February 2025
+ * Updated: 18th August 2025
  *
  * Home:    https://github.com/synesissoftware/Diagnosticism.Go
  *
@@ -141,7 +141,7 @@ func logString_X_X_X(flags LogRequestFlags, req *http.Request) string {
 	return buff.String()
 }
 
-func parseSeverityFromArgs(options ...interface{}) severity.Severity {
+func parseSeverityFromArgs(options ...any) severity.Severity {
 
 	for _, option := range options {
 
@@ -165,7 +165,7 @@ func parseSeverityFromArgs(options ...interface{}) severity.Severity {
 //
 // Options:
 //   - * (severity.Severity) The first option of this type is used for before and/or after logging; if none specified, before and/or after logging is done using severity.Informational
-func LogRequest(flags LogRequestFlags, options ...interface{}) func(http.Handler) http.Handler {
+func LogRequest(flags LogRequestFlags, options ...any) func(http.Handler) http.Handler {
 
 	sev := parseSeverityFromArgs(options)
 
