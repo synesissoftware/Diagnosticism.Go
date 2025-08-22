@@ -21,6 +21,15 @@ Go version.
 - [Introduction](#introduction)
 - [Installation](#installation)
 - [Components](#components)
+	- [Constants](#constants)
+	- [Enumerations](#enumerations)
+	- [Features](#features)
+	- [Functions](#functions)
+		- [Contingent Reporting](#contingent-reporting)
+		- [Debug](#debug)
+		- [Logging/Tracing](#loggingtracing)
+	- [Interfaces](#interfaces)
+	- [Structures](#structures)
 - [Examples](#examples)
 - [Project Information](#project-information)
 	- [Where to get help](#where-to-get-help)
@@ -49,6 +58,143 @@ import diagnosticism "github.com/synesissoftware/Diagnosticism.Go"
 * Tracing
 
 **NOTE**: for the moment, the Diagnostic Logging facilities emit to the standard error stream, via the Contingent Reporting API. In the near future this will be changed to work with more sophisticated logging libraries, including the standard logging facilities and the (as yet to be released) **Pantheios.Go**.
+
+
+### Constants
+
+No public constants are defined at this time.
+
+
+### Enumerations
+
+No public enumerations are defined at this time.
+
+
+### Features
+
+No public crate-specific features are defined at this time.
+
+
+### Functions
+
+The following functions are defined:
+
+
+#### Contingent Reporting
+
+```Go
+func Abort(message string)
+
+func Abortf(format string, args ...any)
+
+func ConRep(message string)
+
+func ConRepf(format string, args ...any)
+
+func MirrorToLog(enable bool)
+
+func IsMirroringToLog() bool
+```
+
+
+#### Debug
+
+```Go
+// Obtains the file information for the calling function.
+func File() string
+
+// Obtains the file and line information for the calling function.
+func FileLine() string
+
+// Obtains the file, line, and function information for the calling
+// function.
+func FileLineFunction() string
+```
+
+
+#### Logging/Tracing
+
+```Go
+func SetBackEnd(be *BackEnd)
+
+func GetBackEndHandlerFunc() *BackEnd
+
+func EnableLogging(enable bool)
+
+func IsLoggingEnabled() bool1
+
+func Log(severity severity.Severity, args ...any)
+
+func Logf(severity severity.Severity, format string, args ...any)
+```
+
+```Go
+func EnableTracing(enable bool)
+
+func IsTracingEnabled() bool
+
+// Creates an argument descriptor that will trace the argument name, type,
+// and value.
+func Trarg(name string, value any) TraceArgument
+
+// Creates an argument descriptor that will trace the argument name, but not
+// type and value.
+func TrargNameOnly(name string, value any) TraceArgument
+
+// Creates an argument descriptor that will trace the argument name and
+// type, but not value.
+func TrargNameTypeOnly(name string, value any) TraceArgument
+
+func TrargTrunc(name string, value any) TraceArgument
+
+// Provides named-argument tracing of a function/method, as in:
+//
+//	 import d "github.com/synesissoftware/Diagnosticism.Go"
+//
+//		func SomeFunction(x, y int, order string) {
+//
+//			d.Trace(d.FileLineFunction(),
+//				d.Trarg("x", x),
+//				d.Trarg("y", y),
+//				d.TrargNameTypeOnly("order", order),
+//			)
+//
+//			. . . impl. of SomeFunc()
+//		}
+//
+// The first parameter `function_name` is a string, and the remaining
+// parameters are a variable length list of TraceArgument instances, which
+// may be created using the `Trarg()` and `TrargNameOnly()` functions
+func Trace(function_name string, args ...TraceArgument)
+```
+
+```Go
+// Middleware adapter that causes a request to be logged, according to the
+// given flags and options
+//
+// Parameters:
+//   - +flags+ (LogRequestFlags) A combination of flags that moderate the behaviour
+//   - +options+ Optional arguments (see below)
+//
+// Options:
+//   - * (severity.Severity) The first option of this type is used for before and/or after logging; if none specified, before and/or after logging is done using severity.Informational
+func LogRequest(flags LogRequestFlags, options ...any) func(http.Handler) http.Handler
+```
+
+```Go
+// Obtains the stock string form of a severity.
+func TranslateStockSeverity(severity Severity) string
+```
+
+
+### Interfaces
+
+No public interface are defined at this time.
+
+
+### Structures
+
+No public structures are defined at this time.
 
 
 ## Examples

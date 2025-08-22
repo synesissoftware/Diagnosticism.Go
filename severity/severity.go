@@ -102,6 +102,7 @@ var severityTranslator SeverityTranslator = new(defaultSeverityTranslator)
  * API functions
  */
 
+// Obtains the stock string form of a severity.
 func TranslateStockSeverity(severity Severity) string {
 
 	switch severity {
