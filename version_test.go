@@ -12,7 +12,7 @@ const (
 	Expected_VersionMajor uint16 = 0
 	Expected_VersionMinor uint16 = 9
 	Expected_VersionPatch uint16 = 1
-	Expected_VersionAB    uint16 = 0x8001
+	Expected_VersionAB    uint16 = 0x8002
 )
 
 func Test_Version_Elements(t *testing.T) {
@@ -23,9 +23,9 @@ func Test_Version_Elements(t *testing.T) {
 }
 
 func Test_Version(t *testing.T) {
-	require.Equal(t, uint64(0x0000_0009_0001_8001), Version)
+	require.Equal(t, uint64(0x0000_0009_0001_8002), Version)
 }
 
 func Test_Version_String(t *testing.T) {
-	require.Equal(t, "0.9.1-beta1", VersionString())
+	require.Equal(t, "0.9.1-beta2", VersionString())
 }

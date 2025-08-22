@@ -7,6 +7,20 @@ import (
 	"testing"
 )
 
+func Test_File(t *testing.T) {
+
+	// NOTE: this regex will likely not work on Windows
+
+	expected := `^[^:]+debug_test[^:]+$`
+	actual := d.File()
+
+	match, _ := regexp.MatchString(expected, actual)
+	if !match {
+
+		t.Errorf("result of calling `File()` - '%s' - did not match expected format '%s'", actual, expected)
+	}
+}
+
 func Test_FileLine(t *testing.T) {
 
 	// NOTE: this regex will likely not work on Windows

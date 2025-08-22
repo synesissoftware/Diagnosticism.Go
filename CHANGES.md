@@ -1,6 +1,11 @@
 # **Diagnosticism.Go** Changes
 
 
+## 0.9.1-beta2 - 18th August 2025
+
+* added `File()` to **Debugging** API;
+
+
 ## 0.9.1-beta1 - 18th August 2025
 
 * GitHub Actions;

@@ -4,7 +4,7 @@
 
 /*
  * Created: 22nd February 2025
- * Updated: 22nd February 2025
+ * Updated: 22nd August 2025
  */
 
 package diagnosticism
@@ -15,6 +15,18 @@ import (
 )
 
 // TODO: refactor in terms of `CallersFrames()`
+
+// Obtains the file information for the calling function.
+func File() string {
+
+	_, file, _, ok := runtime.Caller(1)
+
+	if ok {
+		return file
+	} else {
+		return ""
+	}
+}
 
 // Obtains the file and line information for the calling function.
 func FileLine() string {
