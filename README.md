@@ -22,8 +22,6 @@ Go version.
 - [Installation](#installation)
 - [Components](#components)
 	- [Constants](#constants)
-	- [Enumerations](#enumerations)
-	- [Features](#features)
 	- [Functions](#functions)
 		- [Contingent Reporting](#contingent-reporting)
 		- [Debug](#debug)
@@ -63,16 +61,6 @@ import diagnosticism "github.com/synesissoftware/Diagnosticism.Go"
 ### Constants
 
 No public constants are defined at this time.
-
-
-### Enumerations
-
-No public enumerations are defined at this time.
-
-
-### Features
-
-No public crate-specific features are defined at this time.
 
 
 ### Functions
