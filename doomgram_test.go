@@ -1,8 +1,9 @@
 package diagnosticism_test
 
 import (
-	"github.com/stretchr/testify/require"
 	. "github.com/synesissoftware/Diagnosticism.Go"
+
+	"github.com/stretchr/testify/require"
 
 	"testing"
 )
