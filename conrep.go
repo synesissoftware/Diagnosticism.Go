@@ -4,7 +4,7 @@
  * Purpose: Contingent report API for Diagnosticism.Go
  *
  * Created: 31st May 2019
- * Updated: 18th August 2025
+ * Updated: 26th August 2025
  *
  * Home:    https://github.com/synesissoftware/Diagnosticism.Go
  *
@@ -124,20 +124,39 @@ func conRepWithEol(severity severity.Severity, w io.Writer, msg string) {
  * API functions
  */
 
+// Sets whether should mirror contingent reports (via [ConRep], [ConRepf],
+// [Abort], [Abortf]) to the log.
+//
+// If [IsMirroringToLog] is `true`, then the message will also be emitted to
+// the log before terminating.
 func MirrorToLog(enable bool) {
 
 	mirroringToLog = enable
 }
+
+// Indicates whether mirroring contingent reports (via [ConRep], [ConRepf],
+// [Abort], [Abortf]) to the log.
+//
+// If [IsMirroringToLog] is `true`, then the message will also be emitted to
+// the log before terminating.
 func IsMirroringToLog() bool {
 
 	return mirroringToLog
 }
 
+// Issues the given message to the standard error stream.
+//
+// If [IsMirroringToLog] is `true`, then the message will also be emitted to
+// the log.
 func ConRep(message string) {
 
 	conRepAddEol(severity.Failure, contingentReportWriter, message)
 }
 
+// Issues a formatted message to the standard error stream.
+//
+// If [IsMirroringToLog] is `true`, then the message will also be emitted to
+// the log.
 func ConRepf(format string, args ...any) {
 
 	msg := fmt.Sprintf(format, args...)
@@ -145,6 +164,10 @@ func ConRepf(format string, args ...any) {
 	conRepAddEol(severity.Failure, contingentReportWriter, msg)
 }
 
+// Issues the given message and then end the process.
+//
+// If [IsMirroringToLog] is `true`, then the message will be emitted to the
+// log before terminating.
 func Abort(message string) {
 
 	msg := fmt.Sprintf("%s: %s\n", getProgramName(), message)
@@ -154,6 +177,10 @@ func Abort(message string) {
 	os.Exit(1)
 }
 
+// Issues a formatted message and then end the process.
+//
+// If [IsMirroringToLog] is `true`, then the message will be emitted to the
+// log before terminating.
 func Abortf(format string, args ...any) {
 
 	message := fmt.Sprintf(format, args...)

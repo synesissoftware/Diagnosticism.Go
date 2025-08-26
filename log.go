@@ -4,7 +4,7 @@
  * Purpose: Log API for Diagnosticism.Go
  *
  * Created: 30th May 2019
- * Updated: 18th August 2025
+ * Updated: 26th August 2025
  *
  * Home:    https://github.com/synesissoftware/Diagnosticism.Go
  *
@@ -53,7 +53,7 @@ import (
 	"unsafe"
 )
 
-// Flags for controlling back-end behaviour/features
+// Flags for controlling back-end behaviour/features.
 type BackEndFlag int
 
 const (
@@ -62,15 +62,20 @@ const (
 	NoTime            BackEndFlag = 4
 )
 
+// Type describing an entry to be processed by the logging back-end.
 type BackEndEntry struct {
+	// The severity of the log statement.
 	Severity severity.Severity
-	Time     time.Time
-	Message  string
+	// The time at which the log statement was consumed.
+	Time time.Time
+	// The statement message.
+	Message string
 }
 
-// The BackEndHandlerFunc is called when a log statement is to be emitted
+// The BackEndHandlerFunc is called when a log statement is to be emitted.
 type BackEndHandlerFunc func(be *BackEnd, bee *BackEndEntry)
 
+// Backend log handler.
 type BackEnd struct {
 
 	// Flags that control the back-end behaviour/features
@@ -141,6 +146,8 @@ func SetBackEnd(be *BackEnd) (r *BackEnd) {
 
 	return
 }
+
+// Obtains the current backend handler function.
 func GetBackEndHandlerFunc() *BackEnd {
 
 	return activeBE
@@ -148,10 +155,13 @@ func GetBackEndHandlerFunc() *BackEnd {
 
 var enableLogging bool
 
+// Sets whether logging is enabled.
 func EnableLogging(enable bool) {
 
 	enableLogging = enable
 }
+
+// Indicates whether logging is enabled.
 func IsLoggingEnabled() bool {
 
 	return enableLogging
@@ -175,6 +185,7 @@ func log_s(severity severity.Severity, message string) {
 	be.HandlerFunc(be, &bee)
 }
 
+// Logs the arguments at the given severity.
 func Log(severity severity.Severity, args ...any) {
 
 	if !enableLogging {
@@ -196,6 +207,7 @@ func Log(severity severity.Severity, args ...any) {
 	log_s(severity, s)
 }
 
+// Logs the formatted arguments at the given severity.
 func Logf(severity severity.Severity, format string, args ...any) {
 
 	if !enableLogging {

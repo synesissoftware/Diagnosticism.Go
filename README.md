@@ -10,12 +10,6 @@
 Basic diagnostic facilities, for Go
 
 
-## Introduction
-
-**Diagnosticism** provides low-level diagnostics facilities to support library programming. The first **Diagnosticism** library was a C library with a C++ wrapper. There have been several implementations in other languages. **Diagnosticism.Go** is the
-Go version.
-
-
 ## Table of Contents <!-- omit in toc -->
 
 - [Introduction](#introduction)
@@ -28,6 +22,7 @@ Go version.
 		- [Logging/Tracing](#loggingtracing)
 	- [Interfaces](#interfaces)
 	- [Structures](#structures)
+		- [Logging/Tracing](#loggingtracing-1)
 - [Examples](#examples)
 - [Project Information](#project-information)
 	- [Where to get help](#where-to-get-help)
@@ -37,6 +32,12 @@ Go version.
 	- [Dependent projects](#dependent-projects)
 	- [Related projects](#related-projects)
 	- [License](#license)
+
+
+## Introduction
+
+**Diagnosticism** provides low-level diagnostics facilities to support library programming. The first **Diagnosticism** library was a C library with a C++ wrapper. There have been several implementations in other languages. **Diagnosticism.Go** is the
+Go version.
 
 
 ## Installation
@@ -71,16 +72,36 @@ The following functions are defined:
 #### Contingent Reporting
 
 ```Go
+// Issues the given message and then end the process.
+//
+// If [IsMirroringToLog] is `true`, then the message will be emitted to the
+// log before terminating.
 func Abort(message string)
 
+// Issues a formatted message and then end the process.
+//
+// If [IsMirroringToLog] is `true`, then the message will be emitted to the
+// log before terminating.
 func Abortf(format string, args ...any)
 
+// Issues the given message to the standard error stream.
+//
+// If [IsMirroringToLog] is `true`, then the message will also be emitted to
+// the log.
 func ConRep(message string)
 
+// Issues a formatted message to the standard error stream.
+//
+// If [IsMirroringToLog] is `true`, then the message will also be emitted to
+// the log.
 func ConRepf(format string, args ...any)
 
+// Sets whether should mirror contingent reports (via [ConRep], [ConRepf],
+// [Abort], [Abortf]) to the log.
 func MirrorToLog(enable bool)
 
+// Indicates whether mirroring contingent reports (via [ConRep], [ConRepf],
+// [Abort], [Abortf]) to the log.
 func IsMirroringToLog() bool
 ```
 
@@ -105,14 +126,19 @@ func FileLineFunction() string
 ```Go
 func SetBackEnd(be *BackEnd)
 
+// Obtains the current backend handler function.
 func GetBackEndHandlerFunc() *BackEnd
 
+// Sets whether logging is enabled.
 func EnableLogging(enable bool)
 
-func IsLoggingEnabled() bool1
+// Indicates whether logging is enabled.
+func IsLoggingEnabled() bool
 
+// Logs the arguments at the given severity.
 func Log(severity severity.Severity, args ...any)
 
+// Logs the formatted arguments at the given severity.
 func Logf(severity severity.Severity, format string, args ...any)
 ```
 
@@ -182,7 +208,33 @@ No public interface are defined at this time.
 
 ### Structures
 
-No public structures are defined at this time.
+
+#### Logging/Tracing
+
+```Go
+// Type describing an entry to be processed by the logging back-end.
+type BackEndEntry struct {
+	// The severity of the log statement.
+	Severity severity.Severity
+	// The time at which the log statement was consumed.
+	Time time.Time
+	// The statement message.
+	Message string
+}
+
+// Backend log handler.
+type BackEnd struct {
+
+	// Flags that control the back-end behaviour/features
+	Flags BackEndFlag
+	// The back-end handler function. May not be nil
+	HandlerFunc BackEndHandlerFunc
+	// The string to be used as a separator. If the empty string, then the
+	// default separator - " : " - is used. If no separator is desired, the
+	// NoPrefixSeparator flag must be specified
+	PrefixSeparator string
+}
+```
 
 
 ## Examples
