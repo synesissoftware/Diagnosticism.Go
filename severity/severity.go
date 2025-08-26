@@ -11,6 +11,9 @@ package severity
 
 import (
 	"fmt"
+	"os"
+
+	"golang.org/x/term"
 )
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -62,6 +65,15 @@ const (
  * private types
  */
 
+var severityTranslator SeverityTranslator
+
+type colouredSeverityTranslator struct{}
+
+func (dt colouredSeverityTranslator) SeverityToString(severity Severity) string {
+
+	return ColouredSeverityToString(severity)
+}
+
 type defaultSeverityTranslator struct{}
 
 func (dt defaultSeverityTranslator) SeverityToString(severity Severity) string {
@@ -72,6 +84,59 @@ func (dt defaultSeverityTranslator) SeverityToString(severity Severity) string {
 /* /////////////////////////////////////////////////////////////////////////
  * API functions
  */
+
+// Obtains the coloured stock string form of a given [Severity].
+func ColouredSeverityToString(severity Severity) string {
+
+	switch severity {
+
+	case Violation:
+
+		return "\033[1;93;41;5mViolation\033[0m"
+	case Alert:
+
+		return "\033[1;96;41;5mAlert\033[0m"
+	case Critical:
+
+		return "\033[1;97;41mCritical\033[0m"
+	case Failure:
+
+		return "\033[1;31;43mFailure\033[0m"
+	case Warning:
+
+		return "\033[1;34;43mWarning\033[0m"
+	case Notice:
+
+		return "\033[1;97;100mNotice\033[0m"
+	case Informational:
+
+		return "\033[1;37;100mInformational\033[0m"
+	case Debug0:
+
+		return "\033[1;37;44mDebug0\033[0m"
+	case Debug1:
+
+		return "\033[1;37;44mDebug1\033[0m"
+	case Debug2:
+
+		return "\033[1;37;44mDebug2\033[0m"
+	case Debug3:
+
+		return "\033[1;37;44mDebug3\033[0m"
+	case Debug4:
+
+		return "\033[1;37;44mDebug4\033[0m"
+	case Debug5:
+
+		return "\033[1;37;44mDebug5\033[0m"
+	case Trace:
+
+		return "\033[0;37;44mTrace\033[0m"
+	default:
+
+		return fmt.Sprintf("\033[1;31;47m<Severity: %d>\033[0m", int(severity))
+	}
+}
 
 // Obtains the stock string form of a given [Severity].
 func TranslateStockSeverity(severity Severity) string {
@@ -123,6 +188,20 @@ func TranslateStockSeverity(severity Severity) string {
 	default:
 
 		return fmt.Sprintf("<Severity: %d>", int(severity))
+	}
+}
+
+/* /////////////////////////////////////////////////////////////////////////
+ * init
+ */
+
+func init() {
+	if term.IsTerminal(int(os.Stderr.Fd())) {
+
+		severityTranslator = new(colouredSeverityTranslator)
+	} else {
+
+		severityTranslator = new(defaultSeverityTranslator)
 	}
 }
 

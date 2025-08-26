@@ -66,3 +66,23 @@ func Test_Severity_TranslateStockSeverity(t *testing.T) {
 
 	require.Equal(t, "<Severity: 999>", TranslateStockSeverity(Severity(999)))
 }
+
+func Test_Severity_ColouredSeverityToString(t *testing.T) {
+
+	require.Equal(t, "\033[1;93;41;5mViolation\033[0m", ColouredSeverityToString(Violation))
+	require.Equal(t, "\033[1;96;41;5mAlert\033[0m", ColouredSeverityToString(Alert))
+	require.Equal(t, "\033[1;97;41mCritical\033[0m", ColouredSeverityToString(Critical))
+	require.Equal(t, "\033[1;31;43mFailure\033[0m", ColouredSeverityToString(Failure))
+	require.Equal(t, "\033[1;34;43mWarning\033[0m", ColouredSeverityToString(Warning))
+	require.Equal(t, "\033[1;97;100mNotice\033[0m", ColouredSeverityToString(Notice))
+	require.Equal(t, "\033[1;37;100mInformational\033[0m", ColouredSeverityToString(Informational))
+	require.Equal(t, "\033[1;37;44mDebug0\033[0m", ColouredSeverityToString(Debug0))
+	require.Equal(t, "\033[1;37;44mDebug1\033[0m", ColouredSeverityToString(Debug1))
+	require.Equal(t, "\033[1;37;44mDebug2\033[0m", ColouredSeverityToString(Debug2))
+	require.Equal(t, "\033[1;37;44mDebug3\033[0m", ColouredSeverityToString(Debug3))
+	require.Equal(t, "\033[1;37;44mDebug4\033[0m", ColouredSeverityToString(Debug4))
+	require.Equal(t, "\033[1;37;44mDebug5\033[0m", ColouredSeverityToString(Debug5))
+	require.Equal(t, "\033[0;37;44mTrace\033[0m", ColouredSeverityToString(Trace))
+
+	require.Equal(t, "\033[1;31;47m<Severity: 999>\033[0m", ColouredSeverityToString(Severity(999)))
+}
