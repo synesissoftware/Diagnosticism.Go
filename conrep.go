@@ -129,9 +129,13 @@ func conRepWithEol(severity severity.Severity, w io.Writer, msg string) {
 //
 // If [IsMirroringToLog] is `true`, then the message will also be emitted to
 // the log before terminating.
-func MirrorToLog(enable bool) {
+func MirrorToLog(enable bool) bool {
+
+	r := mirroringToLog
 
 	mirroringToLog = enable
+
+	return r
 }
 
 // Indicates whether mirroring contingent reports (via [ConRep], [ConRepf],

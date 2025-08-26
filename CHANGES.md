@@ -1,9 +1,15 @@
 # **Diagnosticism.Go** Changes
 
 
-## 0.9.1-beta3 - 26th August 2025
+## 0.9.1-beta4 - 27th August 2025
 
 * added coloured log output;
+
+
+## 0.9.1-beta3 - 26th August 2025
+
+* `EnableLogging()` now returns prior state value;
+* `MirrorToLog()` now returns prior state value;
 
 
 ## 0.9.1-beta2 - 18th August 2025
