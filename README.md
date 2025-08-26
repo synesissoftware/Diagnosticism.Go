@@ -98,7 +98,7 @@ func ConRepf(format string, args ...any)
 
 // Sets whether should mirror contingent reports (via [ConRep], [ConRepf],
 // [Abort], [Abortf]) to the log.
-func MirrorToLog(enable bool)
+func MirrorToLog(enable bool) bool
 
 // Indicates whether mirroring contingent reports (via [ConRep], [ConRepf],
 // [Abort], [Abortf]) to the log.
@@ -143,7 +143,7 @@ func Logf(severity severity.Severity, format string, args ...any)
 ```
 
 ```Go
-func EnableTracing(enable bool)
+func EnableTracing(enable bool) bool
 
 func IsTracingEnabled() bool
 
