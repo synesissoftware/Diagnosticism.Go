@@ -4,7 +4,7 @@
 
 /*
  * Created: 5th March 2019
- * Updated: 18th August 2025
+ * Updated: 26th August 2025
  */
 
 package diagnosticism
@@ -19,9 +19,13 @@ import (
 var enableTracing bool
 
 // Enables tracing globally (for all threads/goroutines).
-func EnableTracing(enable bool) {
+func EnableTracing(enable bool) bool {
+
+	r := enableTracing
 
 	enableTracing = enable
+
+	return r
 }
 
 // Indicates whether tracing is enabled globally (for all
