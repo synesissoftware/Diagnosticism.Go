@@ -1,6 +1,6 @@
 module github.com/synesissoftware/Diagnosticism.Go
 
-go 1.24.6
+go 1.24
 
 require (
 	github.com/stretchr/testify v1.11.0
