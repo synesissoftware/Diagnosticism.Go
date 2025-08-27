@@ -42,8 +42,15 @@ Go version.
 
 ## Installation
 
-```Go
+Install:
 
+```bash
+go get "github.com/synesissoftware/Diagnosticism.Go"
+```
+
+Use:
+
+```Go
 import diagnosticism "github.com/synesissoftware/Diagnosticism.Go"
 ```
 
