@@ -1,60 +1,36 @@
-/* /////////////////////////////////////////////////////////////////////////
- * File:    severity.go
- *
- * Purpose: Defines severity type(s) for Diagnosticism.Go
- *
+// Copyright 2019-2025 Matthew Wilson and Synesis Information Systems. All
+// rights reserved. Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file.
+
+/*
  * Created: 30th May 2019
- * Updated: 22nd February 2025
- *
- * Home:    https://github.com/synesissoftware/Diagnosticism.Go
- *
- * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are
- * met:
- *
- * - Redistributions of source code must retain the above copyright notice,
- *   this list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright
- *   notice, this list of conditions and the following disclaimer in the
- *   documentation and/or other materials provided with the distribution.
- * - Neither the names of Matthew Wilson and Synesis Software nor the names
- *   of any contributors may be used to endorse or promote products derived
- *   from this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
- * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
- * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
- * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
- * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- * ////////////////////////////////////////////////////////////////////// */
+ * Updated: 27th August 2025
+ */
 
 package severity
 
 import (
 	"fmt"
+	"os"
+
+	"golang.org/x/term"
 )
 
 /* /////////////////////////////////////////////////////////////////////////
  * types
  */
 
+// API Severity level.
 type Severity int
 
+// Default string form of the stock severity levels.
 func (severity Severity) String() string {
 
 	return severityTranslator.SeverityToString(severity)
 }
 
+// SeverityTranslator is implemented by a type to customise the translation
+// of [Severity] into string form.
 type SeverityTranslator interface {
 	SeverityToString(severity Severity) string
 }
@@ -89,6 +65,15 @@ const (
  * private types
  */
 
+var severityTranslator SeverityTranslator
+
+type colouredSeverityTranslator struct{}
+
+func (dt colouredSeverityTranslator) SeverityToString(severity Severity) string {
+
+	return ColouredSeverityToString(severity)
+}
+
 type defaultSeverityTranslator struct{}
 
 func (dt defaultSeverityTranslator) SeverityToString(severity Severity) string {
@@ -96,13 +81,64 @@ func (dt defaultSeverityTranslator) SeverityToString(severity Severity) string {
 	return TranslateStockSeverity(severity)
 }
 
-var severityTranslator SeverityTranslator = new(defaultSeverityTranslator)
-
 /* /////////////////////////////////////////////////////////////////////////
  * API functions
  */
 
-// Obtains the stock string form of a severity.
+// Obtains the coloured stock string form of a given [Severity].
+func ColouredSeverityToString(severity Severity) string {
+
+	switch severity {
+
+	case Violation:
+
+		return "\033[1;93;41;5mViolation\033[0m"
+	case Alert:
+
+		return "\033[1;96;41;5mAlert\033[0m"
+	case Critical:
+
+		return "\033[1;97;41mCritical\033[0m"
+	case Failure:
+
+		return "\033[1;31;43mFailure\033[0m"
+	case Warning:
+
+		return "\033[1;34;43mWarning\033[0m"
+	case Notice:
+
+		return "\033[1;97;100mNotice\033[0m"
+	case Informational:
+
+		return "\033[1;37;100mInformational\033[0m"
+	case Debug0:
+
+		return "\033[1;37;44mDebug0\033[0m"
+	case Debug1:
+
+		return "\033[1;37;44mDebug1\033[0m"
+	case Debug2:
+
+		return "\033[1;37;44mDebug2\033[0m"
+	case Debug3:
+
+		return "\033[1;37;44mDebug3\033[0m"
+	case Debug4:
+
+		return "\033[1;37;44mDebug4\033[0m"
+	case Debug5:
+
+		return "\033[1;37;44mDebug5\033[0m"
+	case Trace:
+
+		return "\033[0;37;44mTrace\033[0m"
+	default:
+
+		return fmt.Sprintf("\033[1;31;47m<Severity: %d>\033[0m", int(severity))
+	}
+}
+
+// Obtains the stock string form of a given [Severity].
 func TranslateStockSeverity(severity Severity) string {
 
 	switch severity {
@@ -152,6 +188,20 @@ func TranslateStockSeverity(severity Severity) string {
 	default:
 
 		return fmt.Sprintf("<Severity: %d>", int(severity))
+	}
+}
+
+/* /////////////////////////////////////////////////////////////////////////
+ * init
+ */
+
+func init() {
+	if term.IsTerminal(int(os.Stderr.Fd())) {
+
+		severityTranslator = new(colouredSeverityTranslator)
+	} else {
+
+		severityTranslator = new(defaultSeverityTranslator)
 	}
 }
 
