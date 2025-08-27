@@ -1,6 +1,12 @@
 # **Diagnosticism.Go** Changes
 
 
+## 0.10.0-beta1 - 27th August 2025
+
+* added coloured log output;
+* boilerplate;
+
+
 ## 0.9.1-beta4 - 27th August 2025
 
 * added coloured log output;
