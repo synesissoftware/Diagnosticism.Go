@@ -21,9 +21,9 @@ jobs:
 
   build:
     runs-on:
-    - macos-latest
+    # - macos-latest
     - ubuntu-latest
-    - windows-latest
+    # - windows-latest
 
     strategy:
       matrix:
