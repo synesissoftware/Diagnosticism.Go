@@ -90,10 +90,10 @@ do
 
     if [ $Verbosity -ge 2 ]; then
 
-		go test -v "$f"
-	else
+        go test -v "$f"
+    else
 
-		go test  "$f"
+        go test  "$f"
     fi
 
 done

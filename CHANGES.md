@@ -1,6 +1,11 @@
 # **Diagnosticism.Go** Changes
 
 
+## 0.10.0 - 3rd September 2025
+
+* formal release;
+
+
 ## 0.10.0-beta1 - 27th August 2025
 
 * added coloured log output;
