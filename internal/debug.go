@@ -14,24 +14,40 @@ import (
 	"runtime"
 )
 
-// TODO: refactor in terms of `CallersFrames()`
+func getFileLineFunction(depth int, wantFunction bool) (string, int, string, bool) {
+
+	// TODO: refactor in terms of `CallersFrames()`
+
+	pc, file, line, ok := runtime.Caller(depth + 1)
+
+	if ok {
+
+		if wantFunction {
+
+			function := runtime.FuncForPC(pc).Name()
+
+			return file, line, function, true
+		} else {
+
+			return file, line, "", true
+		}
+	} else {
+		return "", -1, "", false
+	}
+}
 
 // Obtains the file information for the calling function.
 func File(depth int) string {
 
-	_, file, _, ok := runtime.Caller(depth + 1)
+	file, _, _, _ := getFileLineFunction(depth+1, false)
 
-	if ok {
-		return file
-	} else {
-		return ""
-	}
+	return file
 }
 
 // Obtains the file and line information for the calling function.
 func FileLine(depth int) string {
 
-	_, file, line, ok := runtime.Caller(depth + 1)
+	file, line, _, ok := getFileLineFunction(depth+1, false)
 
 	if ok {
 		return fmt.Sprintf("%s:%d", file, line)
@@ -44,8 +60,7 @@ func FileLine(depth int) string {
 // function.
 func FileLineFunction(depth int) string {
 
-	pc, file, line, ok := runtime.Caller(depth + 1)
-	function := runtime.FuncForPC(pc).Name()
+	file, line, function, ok := getFileLineFunction(depth+1, true)
 
 	if ok {
 		return fmt.Sprintf("%s:%d:%s", file, line, function)

@@ -13,8 +13,6 @@ import (
 	"github.com/synesissoftware/Diagnosticism.Go/internal"
 )
 
-// TODO: refactor in terms of `CallersFrames()`
-
 // Obtains the file information for the calling function.
 func File() string {
 
