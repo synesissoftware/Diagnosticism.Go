@@ -4,6 +4,7 @@
 ## 0.10.1-alpha1 - 3rd September 2025
 
 * added 4-character shortened aliases for all severities;
+* refactored implementations of `File()`, `FileLine()`, `FileLineFunction()` to support coming tracing changes;
 
 
 ## 0.10.0 - 3rd September 2025
