@@ -1,6 +1,11 @@
 # **Diagnosticism.Go** Changes
 
 
+## 0.11.0 - 28th September 2025
+
+* `DOOMScope`;
+
+
 ## 0.10.0 - 3rd September 2025
 
 * formal release;
