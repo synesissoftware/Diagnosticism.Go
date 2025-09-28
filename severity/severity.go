@@ -4,7 +4,7 @@
 
 /*
  * Created: 30th May 2019
- * Updated: 27th August 2025
+ * Updated: 3rd September 2025
  */
 
 package severity
@@ -56,9 +56,20 @@ const (
 	Debug5        Severity = 13
 	Trace         Severity = 14
 
-	Warn Severity = Warning
+	Viol Severity = Violation
+	Alrt Severity = Alert
+	Crit Severity = Critical
 	Fail Severity = Failure
+	Warn Severity = Warning
+	Notc Severity = Notice
 	Info Severity = Informational
+	Deb0 Severity = Debug0
+	Deb1 Severity = Debug1
+	Deb2 Severity = Debug2
+	Deb3 Severity = Debug3
+	Deb4 Severity = Debug4
+	Deb5 Severity = Debug5
+	Trac Severity = Trace
 )
 
 /* /////////////////////////////////////////////////////////////////////////

@@ -14,28 +14,29 @@ import (
 
 	"fmt"
 	"math/rand"
+	"sync"
 	"time"
 )
 
-func show_strip(dg *d.DOOMGram) {
+func show_strips(dg1 *d.DOOMGram, dg2 *d.DOOMGram, dg3 *d.DOOMGram) {
 
-	fmt.Printf("tick (%v): %s\n", time.Now().Format("15:04:05.000000"), dg.ToStrip())
+	fmt.Printf("tick (%v): %s %s %s\n", time.Now().Format("15:04:05.000000"), dg1.ToStrip(), dg2.ToStrip(), dg3.ToStrip())
 
 	for {
 		select {
 		case <-time.After(time.Duration(1) * time.Second):
 
-			fmt.Printf("tick (%v): %s\n", time.Now().Format("15:04:05.000000"), dg.ToStrip())
+			fmt.Printf("tick (%v): %s %s %s\n", time.Now().Format("15:04:05.000000"), dg1.ToStrip(), dg2.ToStrip(), dg3.ToStrip())
 		}
 	}
 }
 
-func run_waits(dg *d.DOOMGram) {
+func run_waits_doomgram(dg *d.DOOMGram) {
 	r := rand.New(rand.NewSource(12345678))
 
 	for {
 
-		waitTime := r.Int63n(10_0000)
+		waitTime := r.Int63n(1_0000)
 
 		t_before := time.Now()
 
@@ -49,18 +50,55 @@ func run_waits(dg *d.DOOMGram) {
 	}
 }
 
+func run_waits_doomscope(dg *d.DOOMGram) {
+	r := rand.New(rand.NewSource(12345678))
+
+	for {
+
+		waitTime := r.Int63n(10_0000)
+
+		d.DOOMScope(dg, nil, func() error {
+
+			time.Sleep(time.Duration(waitTime) * time.Nanosecond)
+
+			return nil
+		})
+	}
+}
+
+func run_waits_doomscope_locked(dg *d.DOOMGram, rwmu *sync.RWMutex) {
+	r := rand.New(rand.NewSource(12345678))
+
+	for {
+
+		waitTime := r.Int63n(100_0000)
+
+		d.DOOMScope(dg, rwmu, func() error {
+
+			time.Sleep(time.Duration(waitTime) * time.Nanosecond)
+
+			return nil
+		})
+	}
+}
+
 func main() {
 
-	var dg d.DOOMGram
+	var dg1 d.DOOMGram
+	var dg2 d.DOOMGram
+	var dg3 d.DOOMGram
+	var rwmu sync.RWMutex
 
-	fmt.Println("start: ", dg.ToStrip())
+	fmt.Println("start:", dg1.ToStrip(), dg2.ToStrip(), dg3.ToStrip())
 
-	go show_strip(&dg)
-	go run_waits(&dg)
+	go show_strips(&dg1, &dg2, &dg3)
+	go run_waits_doomgram(&dg1)
+	go run_waits_doomscope(&dg2)
+	go run_waits_doomscope_locked(&dg3, &rwmu)
 
 	time.Sleep(time.Duration(1) * time.Minute)
 
-	fmt.Println("done: ", dg.ToStrip())
+	fmt.Println("done: ", dg1.ToStrip(), dg2.ToStrip(), dg3.ToStrip())
 }
 ```
 
@@ -70,68 +108,68 @@ When executed, it gives output (to the standard output stream) along the lines o
 
 ```
 $ go run examples/doomgram.go
-start:  ____________
-tick (08:19:28.709291): ____a_______
-tick (08:19:29.709681): _abded______
-tick (08:19:30.709794): _abded______
-tick (08:19:31.709866): _abded______
-tick (08:19:32.709934): _abdee______
-tick (08:19:33.710035): _abdee______
-tick (08:19:34.710129): _abdee______
-tick (08:19:35.710215): _abdee______
-tick (08:19:36.710294): _acdfe______
-tick (08:19:37.710346): _acdfeaa____
-tick (08:19:38.710408): _acefeaa____
-tick (08:19:39.710475): _acefeaa____
-tick (08:19:40.710532): _acefeaa____
-tick (08:19:41.710631): _acefeaa____
-tick (08:19:42.710680): _acefeaa____
-tick (08:19:43.710720): _acefeaa____
-tick (08:19:44.710777): _acefeaa____
-tick (08:19:45.710852): _acefeaa____
-tick (08:19:46.710922): _acefeaa____
-tick (08:19:47.711046): _acefeaa____
-tick (08:19:48.711122): _acefeaa____
-tick (08:19:49.711217): _acefeaa____
-tick (08:19:50.711259): _acefeaa____
-tick (08:19:51.711309): _acefeaa____
-tick (08:19:52.711351): _acefeaa____
-tick (08:19:53.711434): _acefeaa____
-tick (08:19:54.711481): _acefeaa____
-tick (08:19:55.711523): _acefeba____
-tick (08:19:56.711569): _acefeba____
-tick (08:19:57.711633): _acefeba____
-tick (08:19:58.711679): _acefeba____
-tick (08:19:59.711770): _acefeba____
-tick (08:20:00.711811): _acefeba____
-tick (08:20:01.711855): _acefeba____
-tick (08:20:02.711898): _acefeba____
-tick (08:20:03.711947): _acefeba____
-tick (08:20:04.712011): _acefeba____
-tick (08:20:05.712058): _acefeba____
-tick (08:20:06.712126): _aceffba____
-tick (08:20:07.712178): _aceffba____
-tick (08:20:08.712221): _aceffba____
-tick (08:20:09.712268): _aceffba____
-tick (08:20:10.712312): _aceffba____
-tick (08:20:11.712356): _aceffba____
-tick (08:20:12.712398): _aceffba____
-tick (08:20:13.712443): _aceffba____
-tick (08:20:14.712485): _aceffba____
-tick (08:20:15.712554): _aceffba____
-tick (08:20:16.712650): _aceffba____
-tick (08:20:17.712695): _aceffba____
-tick (08:20:18.712775): _aceffba____
-tick (08:20:19.712827): _aceffba____
-tick (08:20:20.712872): _aceffba____
-tick (08:20:21.712928): _aceffba____
-tick (08:20:22.712966): _aceffba____
-tick (08:20:23.713023): _aceffba____
-tick (08:20:24.713066): _aceffba____
-tick (08:20:25.713120): _aceffba____
-tick (08:20:26.713210): _aceffba____
-tick (08:20:27.713272): _aceffba____
-done:  _aceffba____
+start: ____________ ____________ ____________
+tick (11:21:36.537733): ___aa_______ ____a_______ ____________
+tick (11:21:37.538065): _bdee_______ _abdec______ ___acda_____
+tick (11:21:38.538103): _bdfe_______ _abded______ ___bcda_____
+tick (11:21:39.538122): _bdffa______ _abded______ __abcdb_____
+tick (11:21:40.538149): _bdffb______ _acded______ __abcdb_____
+tick (11:21:41.538177): _bdffba_____ _acdeda_____ __abcdb_____
+tick (11:21:42.538201): _bdffcbaa___ _acdedbaa___ __abdebaa___
+tick (11:21:43.538250): _bdffcbaa___ _acdfdbaa___ __abdebaa___
+tick (11:21:44.538274): _beffcbaa___ _acdfdbaa___ __abdebaa___
+tick (11:21:45.538293): _beffcbaa___ _acefdbaa___ __acdebaa___
+tick (11:21:46.538341): _ceffcbaa___ _acefdbaa___ __acdebaa___
+tick (11:21:47.538370): _ceffcbaa___ _acefdbaa___ __acdebaa___
+tick (11:21:48.538401): _ceffcbaa___ _acefdbaa___ __acdecaa___
+tick (11:21:49.538432): _ceffcbaa___ _acefdbaa___ __acdecaa___
+tick (11:21:50.538454): _ceffcbaa___ _acefdbaa___ __acdecaa___
+tick (11:21:51.538479): _cegfcbaa___ _acefdbaa___ __acdecaa___
+tick (11:21:52.538501): _cegfcbaa___ _acefdbaa___ __acdecaa___
+tick (11:21:53.538532): _cegfcbaa___ _acefebaa___ __acdecaa___
+tick (11:21:54.538561): _cegfcbaa___ _acefebaa___ __acdecaa___
+tick (11:21:55.538598): _cegfcbaa___ _acefebaa___ __acdecaa___
+tick (11:21:56.538652): _cegfccba___ _acefecba___ __acdecba___
+tick (11:21:57.538678): _cegfccba___ _acefecba___ __acdecba___
+tick (11:21:58.538967): _cegfccba___ _acefecba___ __acdecba___
+tick (11:21:59.538998): _cegfdcba___ _acefecba___ __acdecba___
+tick (11:22:00.539017): _cegfdcba___ _acefecba___ __acdecba___
+tick (11:22:01.539043): _cegfdcba___ _acefecba___ __acdecba___
+tick (11:22:02.539065): _cegfdcba___ _acefecba___ __acdecba___
+tick (11:22:03.539081): _ceggdcba___ _acefecba___ __bcdecba___
+tick (11:22:04.539112): _ceggdcba___ _acefecba___ __bcdedba___
+tick (11:22:05.539168): _ceggdcba___ _acefecba___ __bcdedba___
+tick (11:22:06.539207): _ceggdcba___ _acefecba___ __bcdedba___
+tick (11:22:07.539231): _ceggdcba___ _acefecba___ __bcdedba___
+tick (11:22:08.539250): _ceggdcba___ _acefecba___ __bcdedba___
+tick (11:22:09.539266): _ceggdcba___ _acefecba___ __bcdedba___
+tick (11:22:10.539283): _ceggdcba___ _acefecba___ __bcdedba___
+tick (11:22:11.539304): _ceggdcba___ _acefecba___ __bcdedba___
+tick (11:22:12.539348): _ceggdcba___ _acefecba___ __bcdedba___
+tick (11:22:13.539365): _ceggdcba___ _acefecba___ __bcdedba___
+tick (11:22:14.539383): _ceggdcba___ _adefecba___ __bcdedba___
+tick (11:22:15.539398): _ceggdcba___ _adefecba___ __bcdedba___
+tick (11:22:16.539419): _ceggdcba___ _adefecba___ __bcdedba___
+tick (11:22:17.539439): _ceggdcba___ _adefecba___ __bcdedba___
+tick (11:22:18.539470): _ceggdcba___ _adefecba___ __bcdedba___
+tick (11:22:19.539495): _ceggdcba___ _adefecba___ __bcdedba___
+tick (11:22:20.539512): _ceggdcba___ _adefecba___ __bcdedba___
+tick (11:22:21.539531): _ceggdcba___ _adefecba___ __bcdedba___
+tick (11:22:22.539552): _ceggdcba___ _adefecba___ __bcdedba___
+tick (11:22:23.539571): _ceggdcba___ _adefecba___ __bcdedba___
+tick (11:22:24.539594): _ceggdcba___ _adefecba___ __bcdedba___
+tick (11:22:25.539611): _ceggdcba___ _adefecba___ __bcdedba___
+tick (11:22:26.539633): _ceggdcba___ _adefecba___ __bcdedba___
+tick (11:22:27.539656): _ceggdcba___ _adefecba___ __bcdedba___
+tick (11:22:28.539672): _ceggdcba___ _adefecba___ __bcdedba___
+tick (11:22:29.539694): _ceggdcba___ _adefecba___ __bcdedba___
+tick (11:22:30.539716): _ceggdcba___ _adefecba___ __bcdedba___
+tick (11:22:31.539739): _ceggdcba___ _adefecba___ __bcdedba___
+tick (11:22:32.539753): _ceggdcba___ _adefecba___ __bcdedba___
+tick (11:22:33.539779): _ceggdcba___ _adefecba___ __bcdedba___
+tick (11:22:34.539801): _ceggdcba___ _adefecba___ __bcdedba___
+tick (11:22:35.539823): _ceggdcba___ _adefecba___ __bcdedba___
+done:  _ceggdcba___ _bdefecba___ __bcdfdba___
 ```
 
 

@@ -4,12 +4,15 @@
 
 /*
  * Created: 25th March 2025
- * Updated: 27th March 2025
+ * Updated: 28th September 2025
  */
 
 package diagnosticism
 
-import "time"
+import (
+	"sync"
+	"time"
+)
 
 // Decimal Order-Of-Magnitude frequency histoGRAM
 //
@@ -390,4 +393,38 @@ func (d DOOMGram) ToStrip() string {
 	strip[11] = gram_doom_to_char(calc_doom(d.NumEventsIe100s()), ch_0, ch_overflow, rng)
 
 	return string(strip[:])
+}
+
+// Invokes a function in a timed manner and updates the [DOOMGram] instance,
+// with access protected by the [sync.RWMutex] if provided.
+//
+// Parameters:
+//   - dg The [DOOMGram] instance to be modified;
+//   - rwmu Optional [sync.RWMutex] with which to protect access to dg;
+//   - fn Function to be timed;
+func DOOMScope(
+	dg *DOOMGram,
+	rwmu *sync.RWMutex,
+	f func() error,
+) error {
+
+	t_before := time.Now()
+
+	err := f()
+
+	t_after := time.Now()
+
+	d_duration := t_after.Sub(t_before)
+
+	if rwmu != nil {
+		rwmu.Lock()
+		defer rwmu.Unlock()
+
+		dg.PushEventDuration(d_duration)
+	} else {
+
+		dg.PushEventDuration(d_duration)
+	}
+
+	return err
 }

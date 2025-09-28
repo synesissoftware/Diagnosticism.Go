@@ -244,6 +244,20 @@ type BackEnd struct {
 ```
 
 
+#### Timing
+
+```Go
+// Decimal Order-Of-Magnitude frequency histoGRAM
+//
+// # Note:
+// This is a Go port of the equivalent `stlsoft::doomgram` class from the
+// **STLSoft** libraries (https://github.com/synesissoftware/STLSoft-1.11).
+type DOOMGram struct {
+}
+```
+
+
+
 ## Examples
 
 Examples are provided in the ```examples``` directory, along with a markdown description for each. A detailed list TOC of them is provided in [EXAMPLES.md](./EXAMPLES.md).
