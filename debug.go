@@ -4,52 +4,30 @@
 
 /*
  * Created: 22nd February 2025
- * Updated: 22nd August 2025
+ * Updated: 3rd September 2025
  */
 
 package diagnosticism
 
 import (
-	"fmt"
-	"runtime"
+	"github.com/synesissoftware/Diagnosticism.Go/internal"
 )
-
-// TODO: refactor in terms of `CallersFrames()`
 
 // Obtains the file information for the calling function.
 func File() string {
 
-	_, file, _, ok := runtime.Caller(1)
-
-	if ok {
-		return file
-	} else {
-		return ""
-	}
+	return internal.File(1)
 }
 
 // Obtains the file and line information for the calling function.
 func FileLine() string {
 
-	_, file, line, ok := runtime.Caller(1)
-
-	if ok {
-		return fmt.Sprintf("%s:%d", file, line)
-	} else {
-		return ""
-	}
+	return internal.FileLine(1)
 }
 
 // Obtains the file, line, and function information for the calling
 // function.
 func FileLineFunction() string {
 
-	pc, file, line, ok := runtime.Caller(1)
-	function := runtime.FuncForPC(pc).Name()
-
-	if ok {
-		return fmt.Sprintf("%s:%d:%s", file, line, function)
-	} else {
-		return ""
-	}
+	return internal.FileLineFunction(1)
 }

@@ -12,7 +12,7 @@ const (
 	Expected_VersionMajor uint16 = 0
 	Expected_VersionMinor uint16 = 11
 	Expected_VersionPatch uint16 = 0
-	Expected_VersionAB    uint16 = 0xFFFF
+	Expected_VersionAB    uint16 = 0x4001
 )
 
 func Test_Version_Elements(t *testing.T) {
