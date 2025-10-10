@@ -23,6 +23,7 @@ Basic diagnostic facilities, for Go
 	- [Interfaces](#interfaces)
 	- [Structures](#structures)
 		- [Logging/Tracing](#loggingtracing-1)
+		- [Timing](#timing)
 - [Examples](#examples)
 - [Project Information](#project-information)
 	- [Where to get help](#where-to-get-help)
@@ -125,6 +126,12 @@ func FileLine() string
 // Obtains the file, line, and function information for the calling
 // function.
 func FileLineFunction() string
+
+// Obtains the line information for the calling function.
+func Line() int
+
+// Obtains the line and function information for the calling function.
+func LineFunction() string
 ```
 
 

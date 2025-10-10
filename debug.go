@@ -4,7 +4,7 @@
 
 /*
  * Created: 22nd February 2025
- * Updated: 3rd September 2025
+ * Updated: 11th October 2025
  */
 
 package diagnosticism
@@ -30,4 +30,16 @@ func FileLine() string {
 func FileLineFunction() string {
 
 	return internal.FileLineFunction(1)
+}
+
+// Obtains the line information for the calling function.
+func Line() int {
+
+	return internal.Line(1)
+}
+
+// Obtains the line and function information for the calling function.
+func LineFunction() string {
+
+	return internal.LineFunction(1)
 }
