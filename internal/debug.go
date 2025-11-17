@@ -4,7 +4,7 @@
 
 /*
  * Created: 22nd February 2025
- * Updated: 3rd September 2025
+ * Updated: 11th October 2025
  */
 
 package internal
@@ -64,6 +64,30 @@ func FileLineFunction(depth int) string {
 
 	if ok {
 		return fmt.Sprintf("%s:%d:%s", file, line, function)
+	} else {
+		return ""
+	}
+}
+
+// Obtains the line function information for the calling function.
+func Line(depth int) int {
+
+	_, line, _, ok := getFileLineFunction(depth+1, true)
+
+	if ok {
+		return line
+	} else {
+		return -1
+	}
+}
+
+// Obtains the line and function information for the calling function.
+func LineFunction(depth int) string {
+
+	_, line, function, ok := getFileLineFunction(depth+1, true)
+
+	if ok {
+		return fmt.Sprintf("%d:%s", line, function)
 	} else {
 		return ""
 	}

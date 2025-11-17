@@ -48,3 +48,30 @@ func Test_FileLineFunction(t *testing.T) {
 		t.Errorf("result of calling `FileLineFunction()` - '%s' - did not match expected format '%s'", actual, expected)
 	}
 }
+
+func Test_Line(t *testing.T) {
+
+	// NOTE: this regex will likely not work on Windows
+
+	expected := 57
+	actual := d.Line()
+
+	if expected != actual {
+
+		t.Errorf("result of calling `Line()` - %d - did not match expected value %d", actual, expected)
+	}
+}
+
+func Test_LineFunction(t *testing.T) {
+
+	// NOTE: this regex will likely not work on Windows
+
+	expected := `^\d+:.*Test_LineFunction$`
+	actual := d.LineFunction()
+
+	match, _ := regexp.MatchString(expected, actual)
+	if !match {
+
+		t.Errorf("result of calling `LineFunction()` - '%s' - did not match expected format '%s'", actual, expected)
+	}
+}

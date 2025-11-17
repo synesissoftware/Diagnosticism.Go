@@ -1,6 +1,11 @@
 # **Diagnosticism.Go** Changes
 
 
+## 0.12.0 - 11th October 2025
+
+* added `Line()` and `LineFunction()` functions;
+
+
 ## 0.11.0 - 28th September 2025
 
 * `DOOMScope`;
