@@ -4,7 +4,7 @@
 
 /*
  * Created: 22nd February 2025
- * Updated: 11th October 2025
+ * Updated: 20th December 2025
  */
 
 package internal
@@ -67,6 +67,15 @@ func FileLineFunction(depth int) string {
 	} else {
 		return ""
 	}
+}
+
+// Obtains the file, line, and function information for the calling
+// function.
+func Function(depth int) string {
+
+	_, _, function, _ := getFileLineFunction(depth+1, true)
+
+	return function
 }
 
 // Obtains the line function information for the calling function.

@@ -1,7 +1,12 @@
 # **Diagnosticism.Go** Changes
 
 
-## 0.12.0 - 11th October 2025
+## 0.12.0-alpha2 - 20th December 2025
+
+* added `Function()` function;
+
+
+## 0.12.0-alpha1 - 11th October 2025
 
 * added `Line()` and `LineFunction()` functions;
 
