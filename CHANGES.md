@@ -1,6 +1,11 @@
 # **Diagnosticism.Go** Changes
 
 
+## 0.12.0 - 20th December 2025
+
+* formal release;
+
+
 ## 0.12.0-alpha2 - 20th December 2025
 
 * added `Function()` function;

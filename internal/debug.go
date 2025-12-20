@@ -81,7 +81,7 @@ func Function(depth int) string {
 // Obtains the line function information for the calling function.
 func Line(depth int) int {
 
-	_, line, _, ok := getFileLineFunction(depth+1, true)
+	_, line, _, ok := getFileLineFunction(depth+1, false)
 
 	if ok {
 		return line
