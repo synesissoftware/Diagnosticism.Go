@@ -16,13 +16,15 @@ import (
 func f() {
 
 	d.ConRepf("%s: here", d.FileLine())
-	d.ConRepf("%s: here", d.FileLineFunction())
+	d.ConRepf("%s(): here", d.FileLineFunction())
+	d.ConRepf("%s(): here", d.Function())
 }
 
 func main() {
 
 	d.ConRepf("%s: here", d.FileLine())
-	d.ConRepf("%s: here", d.FileLineFunction())
+	d.ConRepf("%s(): here", d.FileLineFunction())
+	d.ConRepf("%s(): here", d.Function())
 
 	f()
 }
@@ -33,10 +35,12 @@ func main() {
 When executed, it gives output (to the standard error stream) along the lines of
 
 ```
-~/forks/synesissoftware/Diagnosticism/Diagnosticism.Go/examples/debugging.go:15: here
-~/forks/synesissoftware/Diagnosticism/Diagnosticism.Go/examples/debugging.go:16:main.main: here
-~/forks/synesissoftware/Diagnosticism/Diagnosticism.Go/examples/debugging.go:9: here
-~/forks/synesissoftware/Diagnosticism/Diagnosticism.Go/examples/debugging.go:10:main.f: here
+~/synesissoftware/freelibs/Diagnosticism/Diagnosticism.Go/examples/debugging.go:16: here
+~/synesissoftware/freelibs/Diagnosticism/Diagnosticism.Go/examples/debugging.go:17:main.main(): here
+main.main(): here
+~/synesissoftware/freelibs/Diagnosticism/Diagnosticism.Go/examples/debugging.go:9: here
+~/synesissoftware/freelibs/Diagnosticism/Diagnosticism.Go/examples/debugging.go:10:main.f(): here
+main.f(): here
 ```
 
 

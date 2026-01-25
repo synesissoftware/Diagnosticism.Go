@@ -52,7 +52,7 @@ go get "github.com/synesissoftware/Diagnosticism.Go"
 Use:
 
 ```Go
-import diagnosticism "github.com/synesissoftware/Diagnosticism.Go"
+import d "github.com/synesissoftware/Diagnosticism.Go"
 ```
 
 

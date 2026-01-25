@@ -35,6 +35,20 @@ func Test_FileLine(t *testing.T) {
 	}
 }
 
+func Test_Function(t *testing.T) {
+
+	// NOTE: this regex will likely not work on Windows
+
+	expected := `^.*Test_Function$`
+	actual := d.Function()
+
+	match, _ := regexp.MatchString(expected, actual)
+	if !match {
+
+		t.Errorf("result of calling `Function()` - '%s' - did not match expected format '%s'", actual, expected)
+	}
+}
+
 func Test_FileLineFunction(t *testing.T) {
 
 	// NOTE: this regex will likely not work on Windows
@@ -53,7 +67,7 @@ func Test_Line(t *testing.T) {
 
 	// NOTE: this regex will likely not work on Windows
 
-	expected := 57
+	expected := 71
 	actual := d.Line()
 
 	if expected != actual {
