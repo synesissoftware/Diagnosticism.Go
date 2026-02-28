@@ -4,7 +4,7 @@
 
 /*
  * Created: 30th May 2019
- * Updated: 26th August 2025
+ * Updated: 1st March 2026
  */
 
 package diagnosticism
@@ -86,11 +86,13 @@ func check_atomically() bool {
 var atomicallyBE = check_atomically()
 var mxBE = &sync.Mutex{}
 
+// Sets the back-end. If `nil`, resets to use the default back-end. Returns
+// the previous back-end.
 func SetBackEnd(be *BackEnd) (r *BackEnd) {
 
-	if r == nil {
+	if be == nil {
 
-		r = &defaultBackEnd
+		be = &defaultBackEnd
 	}
 
 	if atomicallyBE {
@@ -101,7 +103,6 @@ func SetBackEnd(be *BackEnd) (r *BackEnd) {
 		r0 := atomic.SwapPointer(pp_old, p_new)
 
 		r = (*BackEnd)(r0)
-
 	} else {
 
 		mxBE.Lock()
