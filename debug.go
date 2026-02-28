@@ -10,7 +10,13 @@
 package diagnosticism
 
 import (
+	"errors"
+
 	"github.com/synesissoftware/Diagnosticism.Go/internal"
+)
+
+var (
+	errDepthCannotBeNegative = errors.New("depth cannot be negative")
 )
 
 // Obtains the file information for the calling context.
@@ -48,4 +54,57 @@ func Line() int {
 func LineFunction() string {
 
 	return internal.LineFunction(1)
+}
+
+// Obtains the file information for the calling context at the given depth.
+func GetFileFor(depth int) (string, error) {
+
+	if depth < 0 {
+		return "", errDepthCannotBeNegative
+	}
+
+	return internal.File(1 + depth), nil
+}
+
+// Obtains the file and line information for the calling context at the
+// given depth.
+func GetFileLineFor(depth int) (string, error) {
+
+	if depth < 0 {
+		return "", errDepthCannotBeNegative
+	}
+
+	return internal.FileLine(1 + depth), nil
+}
+
+// Obtains the file, line, and function information for the calling
+// context at the given depth.
+func GetFileLineFunctionFor(depth int) (string, error) {
+
+	if depth < 0 {
+		return "", errDepthCannotBeNegative
+	}
+
+	return internal.FileLineFunction(1 + depth), nil
+}
+
+// Obtains the function information for the calling context at the given
+// depth.
+func GetFunctionFor(depth int) (string, error) {
+
+	if depth < 0 {
+		return "", errDepthCannotBeNegative
+	}
+
+	return internal.Function(1 + depth), nil
+}
+
+// Obtains the line information for the calling context at the given depth.
+func GetLineFor(depth int) (int, error) {
+
+	if depth < 0 {
+		return 0, errDepthCannotBeNegative
+	}
+
+	return internal.Line(1 + depth), nil
 }
