@@ -3,6 +3,7 @@
 
 ## 0.13.0 - 1st March 2026
 
+* added `AtoiThousands[T]()`;
 * added `GetFileFor()`;
 * added `GetFileLineFor()`;
 * added `GetFileLineFunctionFor()`;

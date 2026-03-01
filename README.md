@@ -20,6 +20,7 @@ Basic diagnostic facilities, for Go
 		- [Contingent Reporting](#contingent-reporting)
 		- [Debug](#debug)
 		- [Logging/Tracing](#loggingtracing)
+		- [Utilities / helpers](#utilities--helpers)
 	- [Interfaces](#interfaces)
 	- [Structures](#structures)
 		- [Logging/Tracing](#loggingtracing-1)
@@ -63,6 +64,7 @@ import d "github.com/synesissoftware/Diagnosticism.Go"
 * Contingent Reporting
 * Diagnostic Logging
 * Tracing
+* Utilities / helpers
 
 **NOTE**: for the moment, the Diagnostic Logging facilities emit to the standard error stream, via the Contingent Reporting API. In the near future this will be changed to work with more sophisticated logging libraries, including the standard logging facilities and the (as yet to be released) **Pantheios.Go**.
 
@@ -212,6 +214,13 @@ func LogRequest(flags LogRequestFlags, options ...any) func(http.Handler) http.H
 ```Go
 // Obtains the stock string form of a severity.
 func TranslateStockSeverity(severity Severity) string
+```
+
+#### Utilities / helpers
+
+```Go
+// Returns the string form of v in base 10, with thousands separators.
+func ItoaThousands[T int | int8 | int16 | int32 | int64 | uint | uint8 | uint16 | uint32 | uint64 | uintptr](v T) string
 ```
 
 
