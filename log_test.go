@@ -3,6 +3,8 @@ package diagnosticism_test
 import (
 	d "github.com/synesissoftware/Diagnosticism.Go"
 	sev "github.com/synesissoftware/Diagnosticism.Go/severity"
+
+	"github.com/stretchr/testify/assert"
 	stegol "github.com/synesissoftware/STEGoL"
 
 	"bytes"
@@ -10,6 +12,17 @@ import (
 	"strings"
 	"testing"
 )
+
+func Test_custom_BackEnd_nil(t *testing.T) {
+
+	r1 := d.SetBackEnd(nil)
+	assert.NotNil(t, r1)
+
+	r2 := d.SetBackEnd(nil)
+	assert.NotNil(t, r2)
+
+	assert.Equal(t, r1, r2)
+}
 
 func Test_custom_BackEnd_no_time(t *testing.T) {
 

@@ -4,11 +4,11 @@
  * Purpose: LogHandler for Diagnosticism.Go
  *
  * Created: 1st June 2019
- * Updated: 18th August 2025
+ * Updated: 1st March 2026
  *
  * Home:    https://github.com/synesissoftware/Diagnosticism.Go
  *
- * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2026, Matthew Wilson and Synesis Information Systems
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -180,24 +180,21 @@ func LogRequest(flags LogRequestFlags, options ...any) func(http.Handler) http.H
 
 		afterPrefix = AfterPrefix
 		beforePrefix = BeforePrefix
-		break
 	case LogRequest_NotAfter:
 
 		if 0 == (LogRequest_NoWhenLabel & flags) {
 
 			beforePrefix = BeforePrefix
 		}
-		break
 	case LogRequest_NotBefore:
 
 		if 0 == (LogRequest_NoWhenLabel & flags) {
 
 			afterPrefix = AfterPrefix
 		}
-		break
 	case LogRequest_NotBefore | LogRequest_NotAfter:
 
-		break
+		// nothing to do
 	}
 
 	return func(h http.Handler) http.Handler {
