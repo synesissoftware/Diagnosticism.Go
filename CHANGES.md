@@ -1,6 +1,15 @@
 # **Diagnosticism.Go** Changes
 
 
+## 0.13.0 - 1st March 2026
+
+* added `GetFileFor()`;
+* added `GetFileLineFor()`;
+* added `GetFileLineFunctionFor()`;
+* added `GetFunctionFor()`;
+* added `GetLineFor()`;
+
+
 ## 0.12.1 - 1st March 2026
 
 * minor fixes;
