@@ -1,6 +1,11 @@
 # **Diagnosticism.Go** Changes
 
 
+## 0.13.1 - 14th March 2026
+
+* `EnableTracing()` minor refactor;
+
+
 ## 0.13.0 - 1st March 2026
 
 * added `AtoiThousands[T]()`;
