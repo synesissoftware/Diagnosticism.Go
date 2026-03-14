@@ -455,7 +455,7 @@ func Test_DOOMGram_SEVERAL_INTERSECTING_TIMINGS(t *testing.T) {
 	require.Equal(t, "_a_aa___aa_a", dg.ToStrip())
 }
 
-func TEST_doomgram_OVERFLOW_BY_SECONDS(t *testing.T) {
+func Test_doomgram_OVERFLOW_BY_SECONDS(t *testing.T) {
 
 	var dg DOOMGram
 
@@ -490,7 +490,7 @@ func TEST_doomgram_OVERFLOW_BY_SECONDS(t *testing.T) {
 	}
 }
 
-func TEST_doomgram_OVERFLOW_BY_MICROSECONDS(t *testing.T) {
+func Test_doomgram_OVERFLOW_BY_MICROSECONDS(t *testing.T) {
 
 	var dg DOOMGram
 
