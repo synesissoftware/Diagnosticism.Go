@@ -2,7 +2,7 @@
 
 ## Summary
 
-Example illustrating use of Contingent Report API with log mirroring.
+Example illustrating use of Contingent Report API functions `ConRep()` and `Abort()` with log mirroring, which means that each function also echoes its output to a logger, which is enabled by the calls to `EnableLogging(true)` and `MirrorTLog(true)`.
 
 ## Source
 

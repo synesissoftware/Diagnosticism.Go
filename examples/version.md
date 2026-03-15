@@ -2,7 +2,7 @@
 
 ## Summary
 
-Example illustrating use of Trace API.
+Example showing the library version.
 
 ## Source
 
