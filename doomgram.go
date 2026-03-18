@@ -322,30 +322,30 @@ func calc_doom(v uint64) uint32 {
 	if v >= 100_000_000 {
 		// 9-15
 
-		if v >= 10_000_00_000_000 {
-			if v >= 1_000_000_00_000_000 {
-				if v >= 10_000_000_00_000_000 {
+		if v >= 1_000_000_000_000 {
+			if v >= 100_000_000_000_000 {
+				if v >= 1_000_000_000_000_000 {
 
 					// return count_decimal_digits(v);
 				} else {
 					return 7 + 8
 				}
 			} else {
-				if v >= 100_000_00_000_000 {
+				if v >= 10_000_000_000_000 {
 					return 6 + 8
 				} else {
 					return 5 + 8
 				}
 			}
 		} else {
-			if v >= 100_00_000_000 {
-				if v >= 1_000_00_000_000 {
+			if v >= 10_000_000_000 {
+				if v >= 100_000_000_000 {
 					return 4 + 8
 				} else {
 					return 3 + 8
 				}
 			} else {
-				if v >= 10_00_000_000 {
+				if v >= 1_000_000_000 {
 					return 2 + 8
 				} else {
 					return 1 + 8
@@ -390,15 +390,19 @@ func calc_doom(v uint64) uint32 {
 		}
 	}
 
-	if 0 == v {
-		return 0
-	} else {
+	{
 		r := uint32(0)
 		v := v
+
+		v /= 1_000_000_000_000_000
 
 		for 0 != v {
 			v /= 10
 			r += 1
+		}
+
+		if r != 0 {
+			r += 15
 		}
 
 		return r

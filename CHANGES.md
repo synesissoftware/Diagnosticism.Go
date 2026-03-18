@@ -1,6 +1,11 @@
 # **Diagnosticism.Go** Changes
 
 
+## 0.13.3 - 18th March 2026
+
+* `DOOMScope()` performance optimisation;
+
+
 ## 0.13.2 - 18th March 2026
 
 * `DOOMScope()` now takes a `sync.Locker` rather than a `*sync.RWMutex`;
