@@ -9,7 +9,9 @@ func main() {
 
 	d.EnableLogging(true)
 
-	d.Logf(sev.Informational, "i=%d", 10)
+	format := "i=%d"
 
-	d.Logf(sev.Informational, "i=%d", "10")
+	d.Logf(sev.Informational, format, 10)
+
+	d.Logf(sev.Informational, format, "10")
 }

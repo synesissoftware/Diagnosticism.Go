@@ -2,7 +2,7 @@
 
 ## Summary
 
-Example illustrating use of Debugging API.
+Example illustrating use of Debugging API functions `FileLine()`, `FileLineFunction()`, `Function()`.
 
 ## Source
 
