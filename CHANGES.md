@@ -1,13 +1,13 @@
 # **Diagnosticism.Go** Changes
 
 
-## 0.13.2 - 14th March 2026
+## 0.13.2 - 18th March 2026
 
 * `DOOMScope()` now takes a `sync.Locker` rather than a `*sync.RWMutex`;
 * improved documentation;
 
 
-## 0.13.1 - 14th March 2026
+## 0.13.1 - 18th March 2026
 
 * added substantial benchmarking of `DOOMGram`;
 * `EnableLogging()` now returns prior value;
