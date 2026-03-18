@@ -3,6 +3,7 @@
 
 ## 0.13.1 - 14th March 2026
 
+* `EnableLogging()` now returns prior value;
 * `EnableTracing()` minor refactor;
 
 

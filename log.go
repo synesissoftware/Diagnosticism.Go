@@ -4,7 +4,7 @@
 
 /*
  * Created: 30th May 2019
- * Updated: 1st March 2026
+ * Updated: 14th March 2026
  */
 
 package diagnosticism
@@ -125,9 +125,14 @@ func GetBackEndHandlerFunc() *BackEnd {
 var enableLogging bool
 
 // Sets whether logging is enabled.
-func EnableLogging(enable bool) {
+//
+// Returns:
+// The previous value.
+func EnableLogging(enable bool) (previous bool) {
 
-	enableLogging = enable
+	previous, enableLogging = enableLogging, enable
+
+	return
 }
 
 // Indicates whether logging is enabled.
