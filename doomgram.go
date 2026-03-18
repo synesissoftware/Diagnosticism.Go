@@ -1,10 +1,10 @@
-// Copyright 2019-2025 Matthew Wilson and Synesis Information Systems. All
+// Copyright 2019-2026 Matthew Wilson and Synesis Information Systems. All
 // rights reserved. Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
 /*
  * Created: 25th March 2025
- * Updated: 28th September 2025
+ * Updated: 18th March 2026
  */
 
 package diagnosticism
@@ -13,6 +13,21 @@ import (
 	"sync"
 	"time"
 )
+
+const (
+	emptySlotCharacter = byte('_')
+	overflowCharacter  = byte('*')
+)
+
+var (
+	defaultCharacterRange = []byte("abcdefghijklmnopqrstuvwxyz")
+)
+
+// (Performance) implementation notes:
+//
+// - gram_doom_to_char() calls unrolled;
+// - after benchmarking, change all method calls to pointer receiver;
+//
 
 // Decimal Order-Of-Magnitude frequency histoGRAM
 //
@@ -40,12 +55,12 @@ type DOOMGram struct {
 }
 
 // Number of events counted.
-func (d DOOMGram) EventCount() uint64 {
+func (d *DOOMGram) EventCount() uint64 {
 	return d.event_count
 }
 
 // Attempts to obtain the total event time (in nanoseconds).
-func (d DOOMGram) EventTimeTotal() (bool, uint64) {
+func (d *DOOMGram) EventTimeTotal() (bool, uint64) {
 	if d.has_overflowed {
 		return false, 0
 	} else {
@@ -55,17 +70,17 @@ func (d DOOMGram) EventTimeTotal() (bool, uint64) {
 
 // Obtains the total event time (in nanoseconds), regardless of whether
 // overflow has occurred.
-func (d DOOMGram) EventTimeTotalRaw() uint64 {
+func (d *DOOMGram) EventTimeTotalRaw() uint64 {
 	return d.event_time_total
 }
 
 // Indicates whether overflow has occurred.
-func (d DOOMGram) Overflowed() bool {
+func (d *DOOMGram) Overflowed() bool {
 	return d.has_overflowed
 }
 
 // Attempts to obtain the minimum event time.
-func (d DOOMGram) MinEventTime() (bool, uint64) {
+func (d *DOOMGram) MinEventTime() (bool, uint64) {
 	if 0 == d.event_count {
 		return false, 0
 	} else {
@@ -74,7 +89,7 @@ func (d DOOMGram) MinEventTime() (bool, uint64) {
 }
 
 // Attempts to obtain the maximum event time.
-func (d DOOMGram) MaxEventTime() (bool, uint64) {
+func (d *DOOMGram) MaxEventTime() (bool, uint64) {
 	if 0 == d.event_count {
 		return false, 0
 	} else {
@@ -83,62 +98,62 @@ func (d DOOMGram) MaxEventTime() (bool, uint64) {
 }
 
 // Number of events counted in the interval [1ns, 10ns).
-func (d DOOMGram) NumEventsIn1ns() uint64 {
+func (d *DOOMGram) NumEventsIn1ns() uint64 {
 	return d.num_events_in_1ns
 }
 
 // Number of events counted in the interval [10ns, 100ns).
-func (d DOOMGram) NumEventsIn10ns() uint64 {
+func (d *DOOMGram) NumEventsIn10ns() uint64 {
 	return d.num_events_in_10ns
 }
 
 // Number of events counted in the interval [100ns, 1µs).
-func (d DOOMGram) NumEventsIn100ns() uint64 {
+func (d *DOOMGram) NumEventsIn100ns() uint64 {
 	return d.num_events_in_100ns
 }
 
 // Number of events counted in the interval [1µs, 10µs).
-func (d DOOMGram) NumEventsIn1us() uint64 {
+func (d *DOOMGram) NumEventsIn1us() uint64 {
 	return d.num_events_in_1us
 }
 
 // Number of events counted in the interval [10µs, 100µs).
-func (d DOOMGram) NumEventsIn10us() uint64 {
+func (d *DOOMGram) NumEventsIn10us() uint64 {
 	return d.num_events_in_10us
 }
 
 // Number of events counted in the interval [100µs, 1ms).
-func (d DOOMGram) NumEventsIn100us() uint64 {
+func (d *DOOMGram) NumEventsIn100us() uint64 {
 	return d.num_events_in_100us
 }
 
 // Number of events counted in the interval [1ms, 10ms).
-func (d DOOMGram) NumEventsIn1ms() uint64 {
+func (d *DOOMGram) NumEventsIn1ms() uint64 {
 	return d.num_events_in_1ms
 }
 
 // Number of events counted in the interval [10ms, 100ms).
-func (d DOOMGram) NumEventsIn10ms() uint64 {
+func (d *DOOMGram) NumEventsIn10ms() uint64 {
 	return d.num_events_in_10ms
 }
 
 // Number of events counted in the interval [100ms, 1s).
-func (d DOOMGram) NumEventsIn100ms() uint64 {
+func (d *DOOMGram) NumEventsIn100ms() uint64 {
 	return d.num_events_in_100ms
 }
 
 // Number of events counted in the interval [1s, 10s).
-func (d DOOMGram) NumEventsIn1s() uint64 {
+func (d *DOOMGram) NumEventsIn1s() uint64 {
 	return d.num_events_in_1s
 }
 
 // Number of events counted in the interval [10s, 100s).
-func (d DOOMGram) NumEventsIn10s() uint64 {
+func (d *DOOMGram) NumEventsIn10s() uint64 {
 	return d.num_events_in_10s
 }
 
 // Number of events counted in the interval [100s, ∞).
-func (d DOOMGram) NumEventsIe100s() uint64 {
+func (d *DOOMGram) NumEventsIe100s() uint64 {
 	return d.num_events_ge_100s
 }
 
@@ -214,15 +229,15 @@ func (d *DOOMGram) PushEventTimeS(time_in_s uint64) bool {
 }
 
 func (d *DOOMGram) pushEventTimeNs_(time_in_ns uint64) {
-	if time_in_ns >= 1000000 {
+	if time_in_ns >= 1_000_000 {
 		// >= 1ms
 
-		if time_in_ns >= 1000000000 {
+		if time_in_ns >= 1_000_000_000 {
 			// >= 1s
 
-			if time_in_ns >= 100000000000 {
+			if time_in_ns >= 100_000_000_000 {
 				d.num_events_ge_100s += 1
-			} else if time_in_ns >= 10000000000 {
+			} else if time_in_ns >= 10_000_000_000 {
 				d.num_events_in_10s += 1
 			} else {
 				d.num_events_in_1s += 1
@@ -230,9 +245,9 @@ func (d *DOOMGram) pushEventTimeNs_(time_in_ns uint64) {
 		} else {
 			// < 1s
 
-			if time_in_ns >= 100000000 {
+			if time_in_ns >= 100_000_000 {
 				d.num_events_in_100ms += 1
-			} else if time_in_ns >= 10000000 {
+			} else if time_in_ns >= 10_000_000 {
 				d.num_events_in_10ms += 1
 			} else {
 				d.num_events_in_1ms += 1
@@ -241,12 +256,12 @@ func (d *DOOMGram) pushEventTimeNs_(time_in_ns uint64) {
 	} else {
 		// < 1ms
 
-		if time_in_ns >= 1000 {
+		if time_in_ns >= 1_000 {
 			// >= 1µs
 
-			if time_in_ns >= 100000 {
+			if time_in_ns >= 100_000 {
 				d.num_events_in_100us += 1
-			} else if time_in_ns >= 10000 {
+			} else if time_in_ns >= 10_000 {
 				d.num_events_in_10us += 1
 			} else {
 				d.num_events_in_1us += 1
@@ -299,18 +314,51 @@ func (d *DOOMGram) tryAddNsToTotalAndUpdateMinmaxAndCount(time_in_ns uint64) boo
 // NOTE: taken directly from Diagnosticism.Rust
 func calc_doom(v uint64) uint32 {
 
-	if v >= 100000000 {
-		//    return count_decimal_digits(v);
+	if v >= 100_000_000 {
+		// 9-15
+
+		if v >= 10_000_00_000_000 {
+			if v >= 1_000_000_00_000_000 {
+				if v >= 10_000_000_00_000_000 {
+
+					// return count_decimal_digits(v);
+				} else {
+					return 7 + 8
+				}
+			} else {
+				if v >= 100_000_00_000_000 {
+					return 6 + 8
+				} else {
+					return 5 + 8
+				}
+			}
+		} else {
+			if v >= 100_00_000_000 {
+				if v >= 1_000_00_000_000 {
+					return 4 + 8
+				} else {
+					return 3 + 8
+				}
+			} else {
+				if v >= 10_00_000_000 {
+					return 2 + 8
+				} else {
+					return 1 + 8
+				}
+			}
+		}
 	} else {
-		if v >= 10000 {
-			if v >= 1000000 {
-				if v >= 10000000 {
+		// 0-8
+
+		if v >= 10_000 {
+			if v >= 1_000_000 {
+				if v >= 10_000_000 {
 					return 8
 				} else {
 					return 7
 				}
 			} else {
-				if v >= 100000 {
+				if v >= 100_000 {
 					return 6
 				} else {
 					return 5
@@ -318,7 +366,7 @@ func calc_doom(v uint64) uint32 {
 			}
 		} else {
 			if v >= 100 {
-				if v >= 1000 {
+				if v >= 1_000 {
 					return 4
 				} else {
 					return 3
@@ -372,12 +420,12 @@ func gram_doom_to_char(
 
 // Converts a [DOOMGram] instance into a timing strip string
 // representation.
-func (d DOOMGram) ToStrip() string {
+func (d *DOOMGram) ToStrip() string {
 	var strip [12]byte
 
-	ch_0 := byte('_')
-	ch_overflow := byte('*')
-	rng := []byte("abcdefghijklmnopqrstuvwxyz")
+	ch_0 := emptySlotCharacter
+	ch_overflow := overflowCharacter
+	rng := defaultCharacterRange
 
 	strip[0] = gram_doom_to_char(calc_doom(d.NumEventsIn1ns()), ch_0, ch_overflow, rng)
 	strip[1] = gram_doom_to_char(calc_doom(d.NumEventsIn10ns()), ch_0, ch_overflow, rng)
