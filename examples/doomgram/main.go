@@ -9,7 +9,11 @@ import (
 	"time"
 )
 
-func show_strips(dg1 *d.DOOMGram, dg2 *d.DOOMGram, dg3 *d.DOOMGram) {
+func show_strips(
+	dg1 *d.DOOMGram,
+	dg2 *d.DOOMGram,
+	dg3 *d.DOOMGram,
+) {
 
 	fmt.Printf("tick (%v): %s %s %s\n", time.Now().Format("15:04:05.000000"), dg1.ToStrip(), dg2.ToStrip(), dg3.ToStrip())
 
@@ -23,11 +27,11 @@ func show_strips(dg1 *d.DOOMGram, dg2 *d.DOOMGram, dg3 *d.DOOMGram) {
 }
 
 func run_waits_doomgram(dg *d.DOOMGram) {
-	r := rand.New(rand.NewSource(12345678))
+	r := rand.New(rand.NewSource(12_345_678))
 
 	for {
 
-		waitTime := r.Int63n(1_0000)
+		waitTime := r.Int63n(10_000)
 
 		t_before := time.Now()
 
@@ -57,14 +61,14 @@ func run_waits_doomscope(dg *d.DOOMGram) {
 	}
 }
 
-func run_waits_doomscope_locked(dg *d.DOOMGram, rwmu *sync.RWMutex) {
-	r := rand.New(rand.NewSource(12345678))
+func run_waits_doomscope_locked(dg *d.DOOMGram, locker sync.Locker) {
+	r := rand.New(rand.NewSource(12_345_678))
 
 	for {
 
 		waitTime := r.Int63n(100_0000)
 
-		d.DOOMScope(dg, rwmu, func() error {
+		d.DOOMScope(dg, locker, func() error {
 
 			time.Sleep(time.Duration(waitTime) * time.Nanosecond)
 
@@ -79,6 +83,7 @@ func main() {
 	var dg2 d.DOOMGram
 	var dg3 d.DOOMGram
 	var rwmu sync.RWMutex
+	var mu sync.Mutex
 
 	fmt.Println("start:", dg1.ToStrip(), dg2.ToStrip(), dg3.ToStrip())
 
@@ -86,6 +91,7 @@ func main() {
 	go run_waits_doomgram(&dg1)
 	go run_waits_doomscope(&dg2)
 	go run_waits_doomscope_locked(&dg3, &rwmu)
+	go run_waits_doomscope_locked(&dg3, &mu)
 
 	time.Sleep(time.Duration(1) * time.Minute)
 
