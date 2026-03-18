@@ -157,6 +157,7 @@ func (d *DOOMGram) NumEventsIe100s() uint64 {
 	return d.num_events_ge_100s
 }
 
+// Push an event with the given duration.
 func (d *DOOMGram) PushEventDuration(duration time.Duration) bool {
 
 	var time_in_ns_i int64 = int64(duration)
@@ -170,6 +171,7 @@ func (d *DOOMGram) PushEventDuration(duration time.Duration) bool {
 	return d.PushEventTimeNs(time_in_ns)
 }
 
+// Push an event with the given number of nanoseconds.
 func (d *DOOMGram) PushEventTimeNs(time_in_ns uint64) bool {
 	if d.tryAddNsToTotalAndUpdateMinmaxAndCount(time_in_ns) {
 
@@ -183,6 +185,7 @@ func (d *DOOMGram) PushEventTimeNs(time_in_ns uint64) bool {
 	}
 }
 
+// Push an event with the given number of microseconds.
 func (d *DOOMGram) PushEventTimeUs(time_in_us uint64) bool {
 	time_in_ns := 1000 * time_in_us
 
@@ -198,6 +201,7 @@ func (d *DOOMGram) PushEventTimeUs(time_in_us uint64) bool {
 	}
 }
 
+// Push an event with the given number of milliseconds.
 func (d *DOOMGram) PushEventTimeMs(time_in_ms uint64) bool {
 	time_in_ns := 1000 * 1000 * time_in_ms
 
@@ -213,6 +217,7 @@ func (d *DOOMGram) PushEventTimeMs(time_in_ms uint64) bool {
 	}
 }
 
+// Push an event with the given number of seconds.
 func (d *DOOMGram) PushEventTimeS(time_in_s uint64) bool {
 	time_in_ns := 1000 * 1000 * 1000 * time_in_s
 
@@ -444,15 +449,15 @@ func (d *DOOMGram) ToStrip() string {
 }
 
 // Invokes a function in a timed manner and updates the [DOOMGram] instance,
-// with access protected by the [sync.RWMutex] if provided.
+// with access protected by the [sync.Locker] if provided.
 //
 // Parameters:
 //   - dg The [DOOMGram] instance to be modified;
-//   - rwmu Optional [sync.RWMutex] with which to protect access to dg;
+//   - locker Optional [sync.Locker] with which to protect access to dg;
 //   - fn Function to be timed;
 func DOOMScope(
 	dg *DOOMGram,
-	rwmu *sync.RWMutex,
+	locker sync.Locker,
 	f func() error,
 ) error {
 
@@ -464,9 +469,9 @@ func DOOMScope(
 
 	d_duration := t_after.Sub(t_before)
 
-	if rwmu != nil {
-		rwmu.Lock()
-		defer rwmu.Unlock()
+	if locker != nil {
+		locker.Lock()
+		defer locker.Unlock()
 
 		dg.PushEventDuration(d_duration)
 	} else {
