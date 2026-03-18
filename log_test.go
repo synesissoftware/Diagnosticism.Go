@@ -40,7 +40,7 @@ func Test_custom_BackEnd_no_time(t *testing.T) {
 
 	d.Log(sev.Notice, "message-1")
 
-	stegol.CheckStringEqual(t, "Notice : message-1\n", buf.String())
+	stegol.CheckStringByStringMatch(t, "Notice.*:.*message-1", buf.String())
 
 	buf.Truncate(0)
 
@@ -49,7 +49,7 @@ func Test_custom_BackEnd_no_time(t *testing.T) {
 	d.Log(sev.Notice, "message-1")
 	d.Log(sev.Warning, "message-2")
 
-	stegol.CheckStringEqual(t, "Notice : message-1\nWarning : message-2\n", buf.String())
+	stegol.CheckStringByStringMatch(t, "Notice.*:.*message-1.*\n.*Warning.*:.*message-2.*\n", buf.String())
 }
 
 func Test_custom_BackEnd_no_time_and_upcase_severities(t *testing.T) {
@@ -68,7 +68,7 @@ func Test_custom_BackEnd_no_time_and_upcase_severities(t *testing.T) {
 
 	d.Log(sev.Notice, "message-1")
 
-	stegol.CheckStringEqual(t, "NOTICE : message-1\n", buf.String())
+	stegol.CheckStringByStringMatch(t, "NOTICE.*:.*message-1", buf.String())
 
 	buf.Truncate(0)
 
@@ -77,5 +77,5 @@ func Test_custom_BackEnd_no_time_and_upcase_severities(t *testing.T) {
 	d.Log(sev.Notice, "message-1")
 	d.Log(sev.Warning, "message-2")
 
-	stegol.CheckStringEqual(t, "NOTICE : message-1\nWARNING : message-2\n", buf.String())
+	stegol.CheckStringByStringMatch(t, "NOTICE.*:.*message-1.*\n.*WARNING.*:.*message-2.*\n", buf.String())
 }

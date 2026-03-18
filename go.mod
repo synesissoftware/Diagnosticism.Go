@@ -4,8 +4,8 @@ go 1.23.6
 
 require (
 	github.com/stretchr/testify v1.11.1
-	github.com/synesissoftware/STEGoL v0.2.2
-	github.com/synesissoftware/ver2go v0.1.2
+	github.com/synesissoftware/STEGoL v0.3.1-beta1
+	github.com/synesissoftware/ver2go v0.1.3
 	golang.org/x/term v0.34.0
 )
 
