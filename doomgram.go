@@ -390,9 +390,7 @@ func calc_doom(v uint64) uint32 {
 		}
 	}
 
-	if 0 == v {
-		return 0
-	} else {
+	{
 		r := uint32(0)
 		v := v
 
