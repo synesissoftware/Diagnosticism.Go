@@ -2,7 +2,7 @@
 
 ## Summary
 
-Example illustrating use of Contingent Report API with custom logging back-end
+Example illustrating use of Contingent Report API with custom logging back-end.
 
 ## Source
 

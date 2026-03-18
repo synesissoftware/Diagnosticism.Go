@@ -2,7 +2,7 @@
 
 ## Summary
 
-Example illustrating use of Contingent Report API.
+Example illustrating use of Contingent Report API functions `ConRep()` and `Abort()`.
 
 ## Source
 
