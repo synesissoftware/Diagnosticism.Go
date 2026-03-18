@@ -1,6 +1,13 @@
 # **Diagnosticism.Go** Changes
 
 
+## 0.13.1 - 14th March 2026
+
+* added substantial benchmarking of `DOOMGram`;
+* `EnableLogging()` now returns prior value;
+* `EnableTracing()` minor refactor;
+
+
 ## 0.13.0 - 1st March 2026
 
 * added `AtoiThousands[T]()`;

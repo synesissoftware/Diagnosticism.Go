@@ -3,7 +3,7 @@
 
 #
 # Created: 18th August 2025
-# Updated: 3rd September 2025
+# Updated: 18th March 2026
 #
 
 name: Go
@@ -26,6 +26,7 @@ jobs:
 
       matrix:
         go-version:
+        - '1.25'
         - '1.24'
         - '1.23'
         - '1.22'

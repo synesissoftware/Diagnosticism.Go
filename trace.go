@@ -1,10 +1,10 @@
-// Copyright 2019-2025 Matthew Wilson and Synesis Information Systems. All
+// Copyright 2019-2026 Matthew Wilson and Synesis Information Systems. All
 // rights reserved. Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
 /*
  * Created: 5th March 2019
- * Updated: 26th August 2025
+ * Updated: 14th March 2026
  */
 
 package diagnosticism
@@ -19,13 +19,11 @@ import (
 var enableTracing bool
 
 // Enables tracing globally (for all threads/goroutines).
-func EnableTracing(enable bool) bool {
+func EnableTracing(enable bool) (previous bool) {
 
-	r := enableTracing
+	previous, enableTracing = enableTracing, enable
 
-	enableTracing = enable
-
-	return r
+	return
 }
 
 // Indicates whether tracing is enabled globally (for all

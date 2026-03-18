@@ -6,9 +6,78 @@ import (
 	"github.com/stretchr/testify/require"
 
 	"testing"
+	"time"
 )
 
 // NOTE: these functions taken primarily from **Diagnosticism.Rust**.
+
+// -------------------------------------------------------------------------
+// Fixtures
+// -------------------------------------------------------------------------
+
+// Returns a zero-value DOOMGram with no events recorded.
+func emptyDOOMGram() DOOMGram {
+	return DOOMGram{}
+}
+
+// Returns a DOOMGram heavily loaded in a single bucket, exercising the
+// overflow/scaling path in gram_doom_to_char.
+func skewedDOOMGram() DOOMGram {
+	var dg DOOMGram
+
+	for i := 0; i != 1_000_000; i++ {
+		dg.PushEventDuration(1 * time.Millisecond)
+	}
+	dg.PushEventDuration(1 * time.Nanosecond)
+
+	return dg
+}
+
+// Returns a DOOMGram with events only in the microsecond buckets — a
+// realistic profile for a fast in-process operation.
+func sparseDOOMGram() DOOMGram {
+	var dg DOOMGram
+
+	for i := 0; i != 1_000; i++ {
+		dg.PushEventDuration(10 * time.Microsecond)
+	}
+	for i := 0; i != 50; i++ {
+		dg.PushEventDuration(100 * time.Microsecond)
+	}
+
+	return dg
+}
+
+// Returns a DOOMGram with one event recorded in every bucket, giving a
+// representative "all buckets active" strip.
+func uniformDOOMGram() DOOMGram {
+	var dg DOOMGram
+
+	// One sample in each of the 12 OOM buckets.
+	durations := []time.Duration{
+		1 * time.Nanosecond,
+		10 * time.Nanosecond,
+		100 * time.Nanosecond,
+		1 * time.Microsecond,
+		10 * time.Microsecond,
+		100 * time.Microsecond,
+		1 * time.Millisecond,
+		10 * time.Millisecond,
+		100 * time.Millisecond,
+		1 * time.Second,
+		10 * time.Second,
+		100 * time.Second,
+	}
+	for _, dur := range durations {
+		dg.PushEventDuration(dur) // NOTE: assumes PushEventDuration(time.Duration) is the recording API.
+	}
+
+	return dg
+}
+
+// -------------------------------------------------------------------------
+// Unit-tests
+// -------------------------------------------------------------------------
 
 func Test_DOOMGram_Default(t *testing.T) {
 
@@ -455,7 +524,7 @@ func Test_DOOMGram_SEVERAL_INTERSECTING_TIMINGS(t *testing.T) {
 	require.Equal(t, "_a_aa___aa_a", dg.ToStrip())
 }
 
-func TEST_doomgram_OVERFLOW_BY_SECONDS(t *testing.T) {
+func Test_DOOMGram_OVERFLOW_BY_SECONDS(t *testing.T) {
 
 	var dg DOOMGram
 
@@ -490,7 +559,7 @@ func TEST_doomgram_OVERFLOW_BY_SECONDS(t *testing.T) {
 	}
 }
 
-func TEST_doomgram_OVERFLOW_BY_MICROSECONDS(t *testing.T) {
+func Test_DOOMGram_OVERFLOW_BY_MICROSECONDS(t *testing.T) {
 
 	var dg DOOMGram
 
@@ -529,5 +598,154 @@ func TEST_doomgram_OVERFLOW_BY_MICROSECONDS(t *testing.T) {
 		ok := dg.PushEventTimeUs(1)
 
 		require.False(t, ok)
+	}
+}
+
+// -------------------------------------------------------------------------
+// Benchmarks
+// -------------------------------------------------------------------------
+
+var (
+	sink_string string
+)
+
+// Measures the cost of recording a single sub-10ns event.
+func Benchmark_ADD_EVENT_1ns(b *testing.B) {
+	var dg DOOMGram
+
+	b.ResetTimer()
+
+	for range b.N {
+		dg.PushEventDuration(1 * time.Nanosecond)
+	}
+}
+
+// Measures the cost of recording a typical fast in-process duration.
+func Benchmark_ADD_EVENT_1us(b *testing.B) {
+	var dg DOOMGram
+
+	b.ResetTimer()
+
+	for range b.N {
+		dg.PushEventDuration(1 * time.Microsecond)
+	}
+}
+
+// Measures the cost of recording a slow (1s) event, exercising the far end
+// of the bucket array.
+func Benchmark_ADD_EVENT_1s(b *testing.B) {
+	var dg DOOMGram
+
+	b.ResetTimer()
+
+	for range b.N {
+		dg.PushEventDuration(1 * time.Second)
+	}
+}
+
+// -----------------------------------------------------
+// Benchmarks: ToStrip — the primary subject of interest
+// -----------------------------------------------------
+
+// Measures ToStrip on a zero DOOMGram.
+//
+// All 12 buckets are zero; exercises the "all underscore" fast path if any.
+func Benchmark_ToStrip_EMPTY(b *testing.B) {
+	dg := emptyDOOMGram()
+
+	b.ResetTimer()
+
+	for range b.N {
+		sink_string = dg.ToStrip()
+	}
+}
+
+// Measures ToStrip when all 12 buckets are equally populated. This is the
+// most representative general case.
+func Benchmark_ToStrip_UNIFORM(b *testing.B) {
+	dg := uniformDOOMGram()
+
+	b.ResetTimer()
+
+	for range b.N {
+		sink_string = dg.ToStrip()
+	}
+}
+
+// Measures ToStrip with a realistic sparse profile (most buckets empty,
+// activity concentrated in two adjacent buckets).
+func Benchmark_ToStrip_SPARSE(b *testing.B) {
+	dg := sparseDOOMGram()
+
+	b.ResetTimer()
+
+	for range b.N {
+		sink_string = dg.ToStrip()
+	}
+}
+
+// Measures ToStrip when one bucket has vastly more events than the others.
+// Tests the scaling arithmetic under extreme ratios.
+func Benchmark_ToStrip_SKEWED(b *testing.B) {
+	dg := skewedDOOMGram()
+
+	b.ResetTimer()
+
+	for range b.N {
+		sink_string = dg.ToStrip()
+	}
+}
+
+// -----------------------------------------------------
+// Benchmarks: combined Add + ToStrip round-trip
+// -----------------------------------------------------
+
+// Measures the cost of a realistic usage pattern: record N events, then
+// format once. The ratio here (1000:1) is typical for a component that logs
+// its histogram periodically.
+func Benchmark_ADD_EVENTS_THEN_CALL_ToStrip(b *testing.B) {
+	for range b.N {
+		var dg DOOMGram
+
+		for j := 0; j < 1_000; j++ {
+			dg.PushEventDuration(time.Duration(j+1) * time.Microsecond)
+		}
+
+		sink_string = dg.ToStrip()
+	}
+}
+
+// Measures the pathological case where ToStrip is called after every single
+// PushEventDuration — the worst case for any non-optimised allocation.
+func Benchmark_ADD_EVENT_AND_CALL_ToStrip_INTERLEAVED(b *testing.B) {
+	var dg DOOMGram
+
+	b.ResetTimer()
+
+	for i := 0; i != b.N; i++ {
+		dg.PushEventDuration(time.Duration(i+1) * time.Microsecond)
+
+		sink_string = dg.ToStrip()
+	}
+}
+
+// -----------------------------------------------------
+// Allocation probe: assert expected alloc count for ToStrip
+// -----------------------------------------------------
+
+// Test_ToStrip_ALLOCATIONS is not a benchmark but a correctness check on
+// the allocator behaviour of ToStrip. It documents the current allocation
+// count so that any regression (e.g. an extra heap allocation introduced by
+// a refactor) is caught immediately.
+func Test_ToStrip_ALLOCATIONS(t *testing.T) {
+	dg := uniformDOOMGram()
+
+	allocs := testing.AllocsPerRun(1_000, func() {
+		sink_string = dg.ToStrip()
+	})
+
+	const expectedAllocs = 1
+	if allocs != expectedAllocs {
+		t.Errorf("ToStrip(): got %.0f allocs/op, want %d — allocation profile has changed", allocs, expectedAllocs)
 	}
 }
