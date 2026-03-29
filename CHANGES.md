@@ -1,6 +1,11 @@
 # **Diagnosticism.Go** Changes
 
 
+## 0.13.4 - 29th March 2026
+
+* dependencies;
+
+
 ## 0.13.3 - 18th March 2026
 
 * `DOOMScope()` performance optimisation;
