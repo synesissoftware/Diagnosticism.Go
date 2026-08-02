@@ -1,4 +1,4 @@
-# Diagnosticism.Go Examples
+# Diagnosticism.Go - Examples <!-- omit in toc -->
 
 |Name|Source & Description|Summary|
 |---|---|---|
