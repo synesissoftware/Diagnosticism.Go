@@ -3,7 +3,7 @@
 
 #
 # Created: 18th August 2025
-# Updated: 18th March 2026
+# Updated: 3rd August 2026
 #
 
 name: Go
@@ -13,9 +13,19 @@ env:
 
 on:
   push:
-    branches: [ "master", "dev", "gha" ]
+    branches:
+    - boilerplate
+    - dev
+    - idiomatic
+    - master
+    - rc1
+    - rc2
+    - rc3
   pull_request:
-    branches: [ "master", "dev", "gha" ]
+
+defaults:
+  run:
+    shell: bash
 
 jobs:
 
@@ -26,6 +36,7 @@ jobs:
 
       matrix:
         go-version:
+        - '1.26'
         - '1.25'
         - '1.24'
         - '1.23'
@@ -36,15 +47,15 @@ jobs:
         - ubuntu-latest
         - windows-latest
 
-    runs-on: ${{matrix.os}}
+    runs-on: ${{ matrix.os }}
 
     steps:
     - uses: actions/checkout@v4
 
-    - name: "Set up Go ${{matrix.go-version}}"
-      uses: actions/setup-go@v4
+    - name: "Set up Go ${{ matrix.go-version }}"
+      uses: actions/setup-go@v5
       with:
-        go-version: '${{matrix.go-version}}'
+        go-version: '${{ matrix.go-version }}'
 
     - name: "Display Go version"
       run: go version
@@ -53,4 +64,4 @@ jobs:
       run: ./build.sh
 
     - name: "Run all unit-tests"
-      run: ./run_all_unit_tests.sh --verbosity ${{env.VERBOSITY}}
+      run: ./run_all_unit_tests.sh --verbosity ${{ env.VERBOSITY }}

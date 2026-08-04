@@ -1,0 +1,2 @@
+Diagnosticism.Go provides basic diagnostic facilities for Go
+Copyright (c) 2019-2026, Matthew Wilson and Synesis Information Systems

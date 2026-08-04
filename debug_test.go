@@ -7,11 +7,15 @@ import (
 	"testing"
 )
 
+// Optional Windows drive letter prefix (e.g. "D:"), then path segments that may
+// not contain ':' until the first deliberate separator used by FileLine*.
+const (
+	reWinDrive = `(?:[A-Za-z]:)?`
+)
+
 func Test_File(t *testing.T) {
 
-	// NOTE: this regex will likely not work on Windows
-
-	expected := `^[^:]+debug_test[^:]+$`
+	expected := `^` + reWinDrive + `[^:]*debug_test[^:]*$`
 	actual := d.File()
 
 	match, _ := regexp.MatchString(expected, actual)
@@ -23,9 +27,7 @@ func Test_File(t *testing.T) {
 
 func Test_FileLine(t *testing.T) {
 
-	// NOTE: this regex will likely not work on Windows
-
-	expected := `^[^:]+debug_test[^:]+:\d+$`
+	expected := `^` + reWinDrive + `[^:]*debug_test[^:]*:\d+$`
 	actual := d.FileLine()
 
 	match, _ := regexp.MatchString(expected, actual)
@@ -36,8 +38,6 @@ func Test_FileLine(t *testing.T) {
 }
 
 func Test_Function(t *testing.T) {
-
-	// NOTE: this regex will likely not work on Windows
 
 	expected := `^.*Test_Function$`
 	actual := d.Function()
@@ -51,9 +51,7 @@ func Test_Function(t *testing.T) {
 
 func Test_FileLineFunction(t *testing.T) {
 
-	// NOTE: this regex will likely not work on Windows
-
-	expected := `^[^:]+debug_test[^:]+:\d+:.*Test_FileLineFunction$`
+	expected := `^` + reWinDrive + `[^:]*debug_test[^:]*:\d+:.*Test_FileLineFunction$`
 	actual := d.FileLineFunction()
 
 	match, _ := regexp.MatchString(expected, actual)
@@ -65,9 +63,7 @@ func Test_FileLineFunction(t *testing.T) {
 
 func Test_Line(t *testing.T) {
 
-	// NOTE: this regex will likely not work on Windows
-
-	expected := 71
+	expected := 67
 	actual := d.Line()
 
 	if expected != actual {
@@ -77,8 +73,6 @@ func Test_Line(t *testing.T) {
 }
 
 func Test_LineFunction(t *testing.T) {
-
-	// NOTE: this regex will likely not work on Windows
 
 	expected := `^\d+:.*Test_LineFunction$`
 	actual := d.LineFunction()
@@ -92,9 +86,7 @@ func Test_LineFunction(t *testing.T) {
 
 func Test_GetFileLineFor(t *testing.T) {
 
-	// NOTE: this regex will likely not work on Windows
-
-	expected := `^[^:]+debug_test[^:]+:\d+$`
+	expected := `^` + reWinDrive + `[^:]*debug_test[^:]*:\d+$`
 	actual, _ := d.GetFileLineFor(0)
 
 	match, _ := regexp.MatchString(expected, actual)
@@ -106,7 +98,7 @@ func Test_GetFileLineFor(t *testing.T) {
 
 func Test_GetFileLineFunctionFor(t *testing.T) {
 
-	expected := `^[^:]+debug_test[^:]+:\d+:.*Test_GetFileLineFunctionFor$`
+	expected := `^` + reWinDrive + `[^:]*debug_test[^:]*:\d+:.*Test_GetFileLineFunctionFor$`
 	actual, _ := d.GetFileLineFunctionFor(0)
 
 	match, _ := regexp.MatchString(expected, actual)

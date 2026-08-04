@@ -1,4 +1,4 @@
-# TODO <!-- omit from toc -->
+# Diagnosticism.Go - TODO <!-- omit in toc -->
 
 \<none>
 
