@@ -151,7 +151,7 @@
 * ~ wholesale rename of ``diagnosticism`` => ``Diagnosticism``
 
 
-## 0.4.0 (unchanged) - 8th July 2019
+## 0.4.0 - 8th July 2019
 
 * + added several examples
 
