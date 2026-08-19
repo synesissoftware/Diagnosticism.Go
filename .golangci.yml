@@ -1,5 +1,36 @@
 linters:
   default: fast
+  disable:
+    - whitespace
+    - wsl
+  exclusions:
+    rules:
+      - linters:
+          - dupl
+          - funlen
+          - testpackage
+        path: _test\.go
+      - linters:
+          - cyclop
+          - funcorder
+          - funlen
+          - gocognit
+          - mnd
+          - nestif
+        path: doomgram\.go
+      - linters:
+          - lll
+          - mnd
+        path: examples/
+      - linters:
+          - mnd
+        path: itoa_thousands\.go
+      - linters:
+          - gochecknoinits
+        path: severity/severity\.go
+      - linters:
+          - mnd
+        path: version\.go
   settings:
     cyclop:
       max-complexity: 10

@@ -4,7 +4,7 @@
 
 /*
  * Created: 5th March 2019
- * Updated: 14th March 2026
+ * Updated: 20th August 2026
  */
 
 package diagnosticism
@@ -39,7 +39,7 @@ type TraceArgumentFlags int64
 const (
 	None          TraceArgumentFlags = 0                     // No flags specified
 	NameOnly      TraceArgumentFlags = 0x0000_0000_0000_0001 // Does not trace the value of a function parameter.
-	NameTypeOnly  TraceArgumentFlags = 0x0000_0000_0000_0002 // Does not trace the type or the value of a function parameter.
+	NameTypeOnly  TraceArgumentFlags = 0x0000_0000_0000_0002 // Does not trace type or value of a parameter.
 	TruncateValue TraceArgumentFlags = 0x0000_0000_0000_0004 // Causes the value to be truncated to 20 runes.
 )
 
@@ -136,7 +136,7 @@ func TrargTrunc(name string, value any) TraceArgument {
 //
 // The first parameter `function_name` is a string, and the remaining
 // parameters are a variable length list of TraceArgument instances, which
-// may be created using the `Trarg()` and `TrargNameOnly()` functions
+// may be created using the `Trarg()` and `TrargNameOnly()` functions.
 func Trace(function_name string, args ...TraceArgument) {
 
 	if !enableTracing {

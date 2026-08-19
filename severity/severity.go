@@ -1,10 +1,10 @@
-// Copyright 2019-2025 Matthew Wilson and Synesis Information Systems. All
+// Copyright 2019-2026 Matthew Wilson and Synesis Information Systems. All
 // rights reserved. Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
 /*
  * Created: 30th May 2019
- * Updated: 3rd September 2025
+ * Updated: 20th August 2026
  */
 
 package severity
@@ -25,7 +25,6 @@ type Severity int
 
 // Default string form of the stock severity levels.
 func (severity Severity) String() string {
-
 	return severityTranslator.SeverityToString(severity)
 }
 
@@ -81,14 +80,12 @@ var severityTranslator SeverityTranslator
 type colouredSeverityTranslator struct{}
 
 func (dt colouredSeverityTranslator) SeverityToString(severity Severity) string {
-
 	return ColouredSeverityToString(severity)
 }
 
 type defaultSeverityTranslator struct{}
 
 func (dt defaultSeverityTranslator) SeverityToString(severity Severity) string {
-
 	return TranslateStockSeverity(severity)
 }
 

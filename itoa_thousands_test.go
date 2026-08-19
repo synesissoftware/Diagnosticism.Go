@@ -1,4 +1,3 @@
-//nolint:dupl // parallel int / int64 test tables
 package diagnosticism_test
 
 import (
