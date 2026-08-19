@@ -1,4 +1,4 @@
-# Diagnosticism.Go - Example - **flog_fail**
+# Diagnosticism.Go - Example - **logf_fail**
 
 ## Summary
 
