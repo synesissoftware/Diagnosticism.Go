@@ -1,5 +1,12 @@
 # Diagnosticism.Go - Changes <!-- omit in toc -->
 
+## 0.13.5 - 20th August 2026
+
+* CI modernisation (matrix + lint);
+* CI reliability fixes (macOS test linking; golangci-lint config verification disabled in CI);
+* boilerplate additions (scripts, markdown docs, project identity);
+* removed retired Go Report Card badge from README;
+* version string updated for the 0.13.5 release;
 
 ## 0.13.4 - 29th March 2026
 
