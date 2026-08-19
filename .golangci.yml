@@ -1,7 +1,22 @@
-version: "2"
-
 linters:
   default: fast
+  settings:
+    cyclop:
+      max-complexity: 10
+    depguard:
+      rules:
+        main:
+          allow:
+            - $gostd
+            - github.com/stretchr/testify
+            - github.com/synesissoftware/Diagnosticism.Go
+            - github.com/synesissoftware/STEGoL
+            - github.com/synesissoftware/ver2go
+            - go.yaml.in/yaml/v3
+            - golang.org/x/
+          list-mode: lax
 
 run:
   timeout: 5m
+
+version: "2"
