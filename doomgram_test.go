@@ -1,3 +1,4 @@
+//nolint:dupl // parallel timing fixtures ported from Diagnosticism.Rust
 package diagnosticism_test
 
 import (
