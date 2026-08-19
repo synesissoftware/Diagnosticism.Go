@@ -1,3 +1,4 @@
+//nolint:dupl // parallel stock / coloured severity assertion tables
 package severity_test
 
 import (
