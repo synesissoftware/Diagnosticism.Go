@@ -233,6 +233,7 @@ func (d *DOOMGram) PushEventTimeS(time_in_s uint64) bool {
 	}
 }
 
+//nolint:gocyclo
 func (d *DOOMGram) pushEventTimeNs_(time_in_ns uint64) {
 	if time_in_ns >= 1_000_000 {
 		// >= 1ms

@@ -97,6 +97,8 @@ func (dt defaultSeverityTranslator) SeverityToString(severity Severity) string {
  */
 
 // Obtains the coloured stock string form of a given [Severity].
+//
+//nolint:gocyclo
 func ColouredSeverityToString(severity Severity) string {
 
 	switch severity {
@@ -150,6 +152,8 @@ func ColouredSeverityToString(severity Severity) string {
 }
 
 // Obtains the stock string form of a given [Severity].
+//
+//nolint:gocyclo
 func TranslateStockSeverity(severity Severity) string {
 
 	switch severity {
