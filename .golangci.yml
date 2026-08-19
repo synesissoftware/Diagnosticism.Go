@@ -1,4 +1,7 @@
+version: "2"
+
+linters:
+  default: fast
+
 run:
   timeout: 5m
-
-version: "2"
