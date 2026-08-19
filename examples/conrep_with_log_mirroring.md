@@ -1,4 +1,4 @@
-# Diagnosticism.Go Example - **conrep_with_log_mirroring**
+# Diagnosticism.Go - Example - **conrep_with_log_mirroring**
 
 ## Summary
 

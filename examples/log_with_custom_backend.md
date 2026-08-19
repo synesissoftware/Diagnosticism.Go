@@ -1,4 +1,4 @@
-# Diagnosticism.Go Example - **conrep_with_custom_backend**
+# Diagnosticism.Go - Example - **conrep_with_custom_backend**
 
 ## Summary
 

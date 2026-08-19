@@ -1,4 +1,4 @@
-# Diagnosticism.Go - CHANGES <!-- omit in toc -->
+# Diagnosticism.Go - Changes <!-- omit in toc -->
 
 
 ## 0.13.4 - 29th March 2026

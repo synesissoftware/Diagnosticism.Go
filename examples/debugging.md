@@ -1,4 +1,4 @@
-# Diagnosticism.Go Example - **debugging**
+# Diagnosticism.Go - Example - **debugging**
 
 ## Summary
 
