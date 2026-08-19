@@ -39,7 +39,7 @@ func getFileLineFunction(depth int, wantFunction bool) (string, int, string, boo
 // Obtains the file information for the calling function.
 func File(depth int) string {
 
-	file, _, _, _ := getFileLineFunction(depth+1, false)
+	file, _, _, _ := getFileLineFunction(depth+1, false) //nolint:dogsled
 
 	return file
 }
@@ -73,7 +73,7 @@ func FileLineFunction(depth int) string {
 // function.
 func Function(depth int) string {
 
-	_, _, function, _ := getFileLineFunction(depth+1, true)
+	_, _, function, _ := getFileLineFunction(depth+1, true) //nolint:dogsled
 
 	return function
 }
