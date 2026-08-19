@@ -79,3 +79,4 @@ jobs:
       with:
         args: --fast
         verify: false
+        version: v2.4.0
