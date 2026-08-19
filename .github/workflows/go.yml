@@ -3,13 +3,13 @@
 
 #
 # Created: 18th August 2025
-# Updated: 19th August 2026
+# Updated: 20th August 2026
 #
 
 name: Go
 
 env:
-  GO_MIN_VERSION: '1.24'
+  GO_MIN_VERSION: '1.25'
   VERBOSITY: 1
 
 on:
@@ -39,7 +39,6 @@ jobs:
         go-version:
         - '1.26'
         - '1.25'
-        - '1.24'
         os:
         - macos-latest
         - ubuntu-latest

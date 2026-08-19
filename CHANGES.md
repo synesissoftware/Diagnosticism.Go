@@ -4,6 +4,7 @@
 
 * CI modernisation (matrix + lint);
 * CI reliability fixes (macOS test linking; golangci-lint config verification disabled in CI);
+* **`go.mod`** floor raised to **1.25** (dependency-driven; `golang.org/x/term` / `golang.org/x/sys`);
 * boilerplate additions (scripts, markdown docs, project identity);
 * removed retired Go Report Card badge from README;
 * version string updated for the 0.13.5 release;
