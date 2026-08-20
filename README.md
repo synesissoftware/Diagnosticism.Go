@@ -16,6 +16,7 @@ Basic diagnostic facilities, for Go
 - [Installation](#installation)
 - [Components](#components)
 	- [Constants](#constants)
+	- [Version](#version)
 	- [Functions](#functions)
 		- [Contingent Reporting](#contingent-reporting)
 		- [Debug](#debug)
@@ -72,6 +73,21 @@ import d "github.com/synesissoftware/Diagnosticism.Go"
 ### Constants
 
 No public constants are defined at this time.
+
+
+### Version
+
+```Go
+const (
+	VersionMajor uint16 = /* ... */
+	VersionMinor uint16 = /* ... */
+	VersionPatch uint16 = /* ... */
+	VersionAB    uint16 = /* ... */
+)
+
+func Version() uint64
+func VersionString() string
+```
 
 
 ### Functions
