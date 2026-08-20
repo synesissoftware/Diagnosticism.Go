@@ -3,6 +3,7 @@
 
 | Date                | News Item                                                                                                         |
 | ------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| 20th August 2026    | Release of [**Diagnosticism.Go** 0.13.6](https://github.com/synesissoftware/Diagnosticism.Go/releases/tag/0.13.6) |
 | 20th August 2026    | Release of [**Diagnosticism.Go** 0.13.5](https://github.com/synesissoftware/Diagnosticism.Go/releases/tag/0.13.5) |
 | 29th March 2026     | Release of [**Diagnosticism.Go** 0.13.4](https://github.com/synesissoftware/Diagnosticism.Go/releases/tag/0.13.4) |
 | 18th March 2026     | Release of **Diagnosticism.Go** 0.13.3                                                                            |

@@ -8,6 +8,6 @@ import (
 )
 
 func main() {
-	fmt.Printf("Diagnosticism v%s\n", ver2go.CalcVersionString(d.VersionMajor, d.VersionMinor, d.VersionPatch, d.VersionAB))
-	fmt.Printf("ver2go v%s\n", ver2go.CalcVersionString(ver2go.VersionMajor, ver2go.VersionMinor, ver2go.VersionPatch, ver2go.VersionAB))
+	fmt.Printf("Diagnosticism v%s\n", d.VersionString())
+	fmt.Printf("ver2go v%s\n", ver2go.VersionString())
 }

@@ -1,5 +1,15 @@
 # Diagnosticism.Go - Changes <!-- omit in toc -->
 
+## 0.13.6 - 20th August 2026
+
+* added **Version()** (replacing the **Version** constant), formed by **ver2go.CombineVersion()**;
+* documented **Version()** and **VersionString()**;
+* **VersionAB** now uses **ver2go.Release**;
+* updated **ver2go** to 0.2.0-beta1;
+* updated **examples/libver** to use **VersionString()**;
+* version string updated for the 0.13.6 release;
+
+
 ## 0.13.5 - 20th August 2026
 
 * CI modernisation (matrix + lint);
