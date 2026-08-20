@@ -1,5 +1,13 @@
-# Diagnosticism.Go - CHANGES <!-- omit in toc -->
+# Diagnosticism.Go - Changes <!-- omit in toc -->
 
+## 0.13.5 - 20th August 2026
+
+* CI modernisation (matrix + lint);
+* CI reliability fixes (macOS test linking; golangci-lint config verification disabled in CI);
+* **`go.mod`** floor raised to **1.25** (dependency-driven; `golang.org/x/term` / `golang.org/x/sys`);
+* boilerplate additions (scripts, markdown docs, project identity);
+* removed retired Go Report Card badge from README;
+* version string updated for the 0.13.5 release;
 
 ## 0.13.4 - 29th March 2026
 
@@ -151,7 +159,7 @@
 * ~ wholesale rename of ``diagnosticism`` => ``Diagnosticism``
 
 
-## 0.4.0 (unchanged) - 8th July 2019
+## 0.4.0 - 8th July 2019
 
 * + added several examples
 

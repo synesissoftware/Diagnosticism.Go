@@ -4,7 +4,7 @@
 
 /*
  * Created: 25th March 2025
- * Updated: 18th March 2026
+ * Updated: 20th August 2026
  */
 
 package diagnosticism
@@ -316,7 +316,7 @@ func (d *DOOMGram) tryAddNsToTotalAndUpdateMinmaxAndCount(time_in_ns uint64) boo
 	}
 }
 
-// NOTE: taken directly from Diagnosticism.Rust
+// NOTE: taken directly from Diagnosticism.Rust.
 func calc_doom(v uint64) uint32 {
 
 	if v >= 100_000_000 {
@@ -409,7 +409,7 @@ func calc_doom(v uint64) uint32 {
 	}
 }
 
-// NOTE: taken directly from Diagnosticism.Rust
+// NOTE: taken directly from Diagnosticism.Rust.
 func gram_doom_to_char(
 	doom uint32,
 	ch_0 byte,

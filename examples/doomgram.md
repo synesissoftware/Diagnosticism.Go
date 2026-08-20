@@ -1,4 +1,4 @@
-# Diagnosticism.Go Example - **doomgram**
+# Diagnosticism.Go - Example - **doomgram**
 
 ## Summary
 

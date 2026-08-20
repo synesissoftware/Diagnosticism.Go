@@ -10,14 +10,14 @@ import (
 
 func Test_EnableTracing(t *testing.T) {
 
-	go func() {
+	func() {
 		current := d.EnableTracing(false)
 		defer d.EnableTracing(current)
 
 		require.False(t, current, "`EnableTracing()` should return `false` when first called")
 	}()
 
-	go func() {
+	func() {
 		current := d.EnableTracing(true)
 		defer d.EnableTracing(current)
 

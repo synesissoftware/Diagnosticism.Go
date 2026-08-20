@@ -4,11 +4,11 @@
  * Purpose: Contingent report API for Diagnosticism.Go
  *
  * Created: 31st May 2019
- * Updated: 26th August 2025
+ * Updated: 20th August 2026
  *
  * Home:    https://github.com/synesissoftware/Diagnosticism.Go
  *
- * Copyright (c) 2019-2025, Matthew Wilson and Synesis Information Systems
+ * Copyright (c) 2019-2026, Matthew Wilson and Synesis Information Systems
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -63,7 +63,7 @@ var contingentReportWriter io.Writer = os.Stderr
  * helper functions
  */
 
-// TODO: separate this out using proper build constraints
+// Future: separate this out using proper build constraints.
 func osIsWindows() bool {
 
 	if ';' != os.PathListSeparator {

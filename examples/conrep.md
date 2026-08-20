@@ -1,4 +1,4 @@
-# Diagnosticism.Go Example - **conrep**
+# Diagnosticism.Go - Example - **conrep**
 
 ## Summary
 

@@ -9,7 +9,7 @@ func itoaThousands_int64(v int64) string {
 
 	s := strconv.FormatInt(v, 10)
 
-	r := make([]byte, 0, len(s) * 4 / 3)
+	r := make([]byte, 0, len(s)*4/3)
 
 	if neg {
 		s = s[1:]
@@ -43,7 +43,7 @@ func itoaThousands_int64(v int64) string {
 func itoaThousands_uint64(v uint64) string {
 	s := strconv.FormatUint(v, 10)
 
-	r := make([]byte, 0, len(s) * 4 / 3)
+	r := make([]byte, 0, len(s)*4/3)
 
 	var n int
 	switch len(s) % 3 {
@@ -70,7 +70,9 @@ func itoaThousands_uint64(v uint64) string {
 }
 
 // Returns the string form of v in base 10, with thousands separators.
-func ItoaThousands[T int | int8 | int16 | int32 | int64 | uint | uint8 | uint16 | uint32 | uint64 | uintptr](v T) string {
+func ItoaThousands[T int | int8 | int16 | int32 | int64 | uint | uint8 | uint16 | uint32 | uint64 | uintptr](
+	v T,
+) string {
 
 	switch any(v).(type) {
 	case int, int8, int16, int32, int64:

@@ -4,7 +4,7 @@
  * Purpose: LogHandler for Diagnosticism.Go
  *
  * Created: 1st June 2019
- * Updated: 1st March 2026
+ * Updated: 20th August 2026
  *
  * Home:    https://github.com/synesissoftware/Diagnosticism.Go
  *
@@ -53,18 +53,18 @@ type LogRequestFlags int
 
 const (
 
-	// Do not log before the request
+	// Do not log before the request.
 	LogRequest_NotBefore LogRequestFlags = 1 << iota
-	// Do not log after the request
+	// Do not log after the request.
 	LogRequest_NotAfter LogRequestFlags = 1 << iota
-	// Do not include a BEFORE/AFTER prefix
+	// Do not include a BEFORE/AFTER prefix.
 	LogRequest_NoWhenLabel LogRequestFlags = 1 << iota
 
-	// Do not include the method
+	// Do not include the method.
 	LogRequest_NotMethod LogRequestFlags = 1 << iota
-	// Do not include the URL
+	// Do not include the URL.
 	LogRequest_NotURL LogRequestFlags = 1 << iota
-	// Include the protocol
+	// Include the protocol.
 	LogRequest_Protocol LogRequestFlags = 1 << iota
 )
 
@@ -164,7 +164,8 @@ func parseSeverityFromArgs(options ...any) severity.Severity {
 //   - +options+ Optional arguments (see below)
 //
 // Options:
-//   - * (severity.Severity) The first option of this type is used for before and/or after logging; if none specified, before and/or after logging is done using severity.Informational
+//   - * (severity.Severity) The first option of this type is used for before and/or after logging;
+//     if none specified, before and/or after logging is done using severity.Informational.
 func LogRequest(flags LogRequestFlags, options ...any) func(http.Handler) http.Handler {
 
 	sev := parseSeverityFromArgs(options)

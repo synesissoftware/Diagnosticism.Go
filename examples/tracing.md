@@ -1,4 +1,4 @@
-# Diagnosticism.Go Example - **tracing**
+# Diagnosticism.Go - Example - **tracing**
 
 ## Summary
 

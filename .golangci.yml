@@ -1,0 +1,70 @@
+formatters:
+  enable:
+    - gci
+  exclusions:
+    paths:
+      - examples/
+  settings:
+    gci:
+      custom-order: true
+      no-inline-comments: false
+      no-prefix-comments: false
+      sections:
+        - prefix(github.com/synesissoftware/Diagnosticism.Go)
+        - default
+        - standard
+
+linters:
+  default: fast
+  disable:
+    - whitespace
+    - wsl
+  exclusions:
+    rules:
+      - linters:
+          - dupl
+          - funlen
+          - testpackage
+        path: _test\.go
+      - linters:
+          - cyclop
+          - funcorder
+          - funlen
+          - gocognit
+          - mnd
+          - nestif
+        path: doomgram\.go
+      - linters:
+          - lll
+          - mnd
+        path: examples/
+      - linters:
+          - mnd
+        path: itoa_thousands\.go
+      - linters:
+          - gochecknoinits
+        path: severity/severity\.go
+      - linters:
+          - lll
+          - mnd
+        path: version\.go
+  settings:
+    cyclop:
+      max-complexity: 10
+    depguard:
+      rules:
+        main:
+          allow:
+            - $gostd
+            - github.com/stretchr/testify
+            - github.com/synesissoftware/Diagnosticism.Go
+            - github.com/synesissoftware/STEGoL
+            - github.com/synesissoftware/ver2go
+            - go.yaml.in/yaml/v3
+            - golang.org/x/
+          list-mode: lax
+
+run:
+  timeout: 5m
+
+version: "2"
