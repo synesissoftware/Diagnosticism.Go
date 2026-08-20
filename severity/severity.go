@@ -10,10 +10,10 @@
 package severity
 
 import (
+	"golang.org/x/term"
+
 	"fmt"
 	"os"
-
-	"golang.org/x/term"
 )
 
 /* /////////////////////////////////////////////////////////////////////////

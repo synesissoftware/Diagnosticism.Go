@@ -3,9 +3,9 @@ package diagnosticism_test
 import (
 	d "github.com/synesissoftware/Diagnosticism.Go"
 
-	"testing"
-
 	"github.com/stretchr/testify/assert"
+
+	"testing"
 )
 
 func Test_ItoaThousands_int(t *testing.T) {

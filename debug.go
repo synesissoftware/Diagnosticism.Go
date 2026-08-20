@@ -10,9 +10,9 @@
 package diagnosticism
 
 import (
-	"errors"
-
 	"github.com/synesissoftware/Diagnosticism.Go/internal"
+
+	"errors"
 )
 
 var (

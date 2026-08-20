@@ -3,6 +3,8 @@ linters:
   disable:
     - whitespace
     - wsl
+  enable:
+    - gci
   exclusions:
     rules:
       - linters:
@@ -46,6 +48,14 @@ linters:
             - go.yaml.in/yaml/v3
             - golang.org/x/
           list-mode: lax
+    gci:
+      custom-order: true
+      no-inline-comments: false
+      no-prefix-comments: false
+      sections:
+        - prefix(github.com/synesissoftware/Diagnosticism.Go)
+        - default
+        - standard
 
 run:
   timeout: 5m
